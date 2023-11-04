@@ -1,7 +1,10 @@
 // ignore: file_names
+import 'package:ecommerce_ui/Pages/authentication/SingupPage.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import '../Home Page/home_page.dart';
@@ -106,7 +109,7 @@ class _SingInPageState extends State<SingInPage> {
                           },
                         ),
                         const Text(
-                          "Rememberme",
+                          "Remember",
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -131,14 +134,37 @@ class _SingInPageState extends State<SingInPage> {
                   height: 15,
                 ),
                 CostomButton(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
-                  },
+                  onTap: () async {
+                          if (formkey.currentState!.validate()) {
+                           
+                            try {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                    email: mailController.text,
+                                    password: passwordController.text,
+                                  )
+                                  .then(
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomePage(),
+                                      ),
+                                      (route) => false,
+                                    ),
+                                  );
+                            } catch (e) {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    e.toString(),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        },
                   text: "Lorem iqsum",
                 ),
                 const SizedBox(
@@ -149,22 +175,31 @@ class _SingInPageState extends State<SingInPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const Padding(
-        padding: EdgeInsets.all(15.0),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(15.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Creat Account ?",
+            const Text(
+              "Create Account ?",
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
-            Text(
-              "Creat Account ?",
-              style: TextStyle(
-                fontSize: 20,
-                color: AllColors.yellowColor,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ));
+              },
+              child: const Text(
+                "Sing Up",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: AllColors.yellowColor,
+                ),
               ),
             ),
           ],

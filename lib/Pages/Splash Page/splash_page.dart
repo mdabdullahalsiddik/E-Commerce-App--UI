@@ -1,5 +1,7 @@
+import 'package:ecommerce_ui/Pages/Home%20Page/home_page.dart';
 import 'package:ecommerce_ui/Pages/Welcome%20Page/welcome_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -16,7 +18,9 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const WelcomePage(),
+              builder: (context) => FirebaseAuth.instance.currentUser != null
+                  ? const HomePage()
+                  : const WelcomePage(),
             ),
             (route) => false);
       },

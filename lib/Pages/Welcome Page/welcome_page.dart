@@ -1,6 +1,7 @@
-import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:flutter/material.dart';
+
+import '../authentication/SinginPage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -68,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Lorem issum dolor sit amet. consectetuer adipiscing elit. sed",
+                      "Lorem issue dolor sit amet. consecrate disciplining elite. sed",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 22,

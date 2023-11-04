@@ -63,7 +63,7 @@ class _CardPageState extends State<CardPage> {
                       ),
                     ),
                     Text(
-                      "Dinajpur",
+                      "Dinosaur",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,

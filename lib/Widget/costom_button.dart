@@ -27,7 +27,7 @@ class CostomButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              text,
+              text ?? "Button",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

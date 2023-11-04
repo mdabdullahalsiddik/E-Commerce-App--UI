@@ -68,7 +68,7 @@ class OTPPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .05,
           ),
           const Text(
-            "Lorem issum dolor sit amet. consectetuer adipiscing elit. sed",
+            "Lorem issue dolor sit amet. consecrate disciplining elite. sed",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,
