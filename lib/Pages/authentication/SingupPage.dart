@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore: file_names
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
-import 'package:ecommerce_ui/Pages/Home%20Page/home_page.dart';
+import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
