@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/welcome_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
@@ -19,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
             context,
             MaterialPageRoute(
               builder: (context) => FirebaseAuth.instance.currentUser != null
-                  ? const HomePage()
+                  ? const ButtomNavigatorBarPage()
                   : const WelcomePage(),
             ),
             (route) => false);

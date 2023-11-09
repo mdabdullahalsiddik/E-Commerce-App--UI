@@ -12,7 +12,7 @@ class _AmountPageState extends State<AmountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(),
+      appBar: costomAppbar(context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,

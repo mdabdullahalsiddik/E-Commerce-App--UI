@@ -1,4 +1,5 @@
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
+import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -60,36 +61,62 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+        ),
         child: GridView.builder(
           itemCount: item.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, crossAxisSpacing: 1),
+            crossAxisCount: 2,
+            crossAxisSpacing: 1,
+          ),
           itemBuilder: (context, index) {
-            return Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .1,
-                    width: MediaQuery.of(context).size.width * .4,
-                    child: Image.network(
-                      item[index]["image"],
-                      fit: BoxFit.cover,
-                    ),
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProductDitlsPage(),
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  Text(
-                    item[index]["title"],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                );
+              },
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.favorite,
+                            size: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                  )
-                ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .1,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Image.network(
+                        item[index]["image"],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    Text(
+                      item[index]["title"],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           },

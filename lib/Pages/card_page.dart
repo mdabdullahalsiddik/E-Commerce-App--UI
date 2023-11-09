@@ -14,7 +14,16 @@ class _CardPageState extends State<CardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(),
+      appBar: costomAppbar(context: context, icon: IconButton(
+      onPressed: 
+          () {
+            Navigator.pop(context);
+          },
+      icon: const Icon(
+        Icons.arrow_back_outlined,
+        color: Colors.black,
+      ),
+    )),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -63,7 +72,7 @@ class _CardPageState extends State<CardPage> {
                       ),
                     ),
                     Text(
-                      "Dinosaur",
+                      "Dinajpur",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,

@@ -1,5 +1,7 @@
 // ignore: file_names
 import 'package:ecommerce_ui/Pages/authentication/SingupPage.dart';
+import 'package:ecommerce_ui/Pages/authentication/otp_page.dart';
+import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
@@ -94,37 +96,45 @@ class _SingInPageState extends State<SingInPage> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Checkbox(
-                          activeColor: AllColors.yellowColor,
-                          value: value,
-                          onChanged: (val) {
-                            setState(() {
-                              value = val!;
-                            });
-                          },
+                        SizedBox(
+                          width: 22,
+                          child: Checkbox(
+                            activeColor: AllColors.yellowColor,
+                            value: value,
+                            onChanged: (val) {
+                              setState(() {
+                                value = val!;
+                              });
+                            },
+                          ),
                         ),
                         const Text(
                           "Remember",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 13,
                           ),
                         )
                       ],
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot your password ?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AllColors.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> OTPPage()));
+                        },
+                        child: const Text(
+                          "Forgot your password ?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AllColors.primaryColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -148,7 +158,7 @@ class _SingInPageState extends State<SingInPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const HomePage(),
+                                            const ButtomNavigatorBarPage(),
                                       ),
                                       (route) => false,
                                     ),

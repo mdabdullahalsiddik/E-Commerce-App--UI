@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/Pages/item_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,35 @@ class ProductDitlsPage extends StatefulWidget {
 
 class _ProductDitlsPageState extends State<ProductDitlsPage> {
   double vlu = 0;
-
+  int lines = 1;
+  String selectedProductColor = '0';
+  List productColorList = [
+    Colors.grey.shade400,
+    Colors.black,
+    Colors.grey,
+    Colors.deepOrange,
+    Colors.yellow,
+    Colors.green,
+    Colors.teal,
+    Colors.cyan,
+    Colors.blue,
+    Colors.red,
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(),
+      appBar: costomAppbar(
+        context: context, icon: IconButton(
+      onPressed: 
+          () {
+            Navigator.pop(context);
+          },
+      icon: const Icon(
+        Icons.arrow_back_outlined,
+        color: Colors.black,
+      ),
+    ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -69,13 +94,40 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               const SizedBox(
                 height: 10,
               ),
+              // Text(
+              //   "Great, let's talk about sunglasses! Did you know that sunglasses not only protect your eyes from the sun's harmful rays, but they can also enhance your visual privacy and make you look fabulous? With so many styles and brands available, it can be overwhelming to choose the right pair. Consider your face shape, skin tone, and personal style when selecting a pair. And don't forget to opt for polarized lenses for added UV protection and reduced glare. Happy shopping! ",
+              //   textAlign: TextAlign.start,
+              //   style: TextStyle(
+              //     color: Colors.black.withOpacity(.5),
+              //   ),
+              // ),
               Text(
                 "Great, let's talk about sunglasses! Did you know that sunglasses not only protect your eyes from the sun's harmful rays, but they can also enhance your visual privacy and make you look fabulous? With so many styles and brands available, it can be overwhelming to choose the right pair. Consider your face shape, skin tone, and personal style when selecting a pair. And don't forget to opt for polarized lenses for added UV protection and reduced glare. Happy shopping! ",
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
                 ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: lines,
               ),
+              lines == 1
+                  ? TextButton(
+                      onPressed: () {
+                        setState(() {
+                          lines = 3;
+                        });
+                      },
+                      child: const Text("Show More"),
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        setState(() {
+                          lines = 1;
+                        });
+                      },
+                      child: const Text("Show Less"),
+                    ),
+
               const SizedBox(
                 height: 10,
               ),
@@ -95,90 +147,115 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               const SizedBox(
                 height: 10,
               ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle_outlined,
-                          color: Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.green,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.brown,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.red,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.cyan,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.circle,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              // Column(
+              //   children: [
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle_outlined,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.green,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.blue,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.blueGrey,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.brown,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.red,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.cyan,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.deepPurple,
+              //           ),
+              //         ),
+              //         IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(
+              //             Icons.circle,
+              //             color: Colors.grey,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5),
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedProductColor = index.toString();
+                        });
+                      },
+                      child: index.toString() == selectedProductColor
+                          ? CircleAvatar(
+                              child: Icon(
+                                Icons.circle,
+                                color: productColorList[index],
+                              ),
+                            )
+                          : Icon(
+                              Icons.circle,
+                              color: productColorList[index],
+                            ),
+                    );
+                  }),
               const SizedBox(
                 height: 10,
               ),
@@ -199,7 +276,6 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                 height: 10,
               ),
               Slider(
-               
                 value: vlu,
                 activeColor: AllColors.yellowColor,
                 min: 0,
@@ -223,7 +299,10 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ItemPage()));
+              },
               child: const Text(
                 "Buy Now",
                 textAlign: TextAlign.start,

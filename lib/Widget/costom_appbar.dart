@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 
 PreferredSizeWidget? costomAppbar({
   void Function()? onPressed,
+  var context,
+  var icon,
 }) {
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.white,
     centerTitle: true,
-    leading: IconButton(
-      onPressed: onPressed,
-      icon: const Icon(
-        Icons.arrow_back_outlined,
-      ),
-    ),
+    leading: icon?? Text(""),
     title: const Text(
       "Lorem iqsum",
       style: TextStyle(

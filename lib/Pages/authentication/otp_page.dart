@@ -9,8 +9,9 @@ class OTPPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(),
+      appBar: AppBar(centerTitle: true,title: Text("Lorem Issum"),),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: SizedBox(
@@ -68,7 +69,7 @@ class OTPPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .05,
           ),
           const Text(
-            "Lorem issue dolor sit amet. consecrate disciplining elite. sed",
+            "Lorem issum dolor sit amet. consectetuer adipiscing elit. sed",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,

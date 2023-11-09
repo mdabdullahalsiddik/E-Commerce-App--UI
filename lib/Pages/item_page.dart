@@ -10,20 +10,42 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
-  int itemNmumber = 1;
+  int itemNumber = 1;
   int money = 50;
-  int itemMonye = 50;
-
-  void itemMony() {
-    setState(() {
-      itemMonye = money * itemNmumber;
-    });
-  }
+  int itemMoney = 50;
+  String selectItem = '';
+  List<Map<String,dynamic>> itemQTY = [
+    {
+      "qty" : 1,
+      "tp" : 50,
+      "netTp" : 50,
+    },
+    {
+      "qty" : 1,
+      "tp" : 70,
+      "netTp" : 70,
+    },
+    {
+      "qty" : 1,
+      "tp" : 60,
+      "netTp" : 60,
+    },
+    {
+      "qty" : 1,
+      "tp" : 40,
+      "netTp" : 40,
+    },
+    {
+      "qty" : 1,
+      "tp" : 100,
+      "netTp" : 100,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(),
+      appBar: costomAppbar(context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -31,9 +53,9 @@ class _ItemPageState extends State<ItemPage> {
         child: ListView.builder(
           shrinkWrap: true,
           primary: false,
-          itemCount: 10,
+          itemCount: itemQTY.length,
           itemBuilder: (context, index) {
-            return Padding(
+             return Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 5,
               ),
@@ -68,15 +90,17 @@ class _ItemPageState extends State<ItemPage> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    setState(() {
-                                      itemNmumber -= 1;
-                                      itemMony();
-                                    });
+                                    if(itemQTY[index]['qty'] > 1){
+                                      setState(() {
+                                        itemQTY[index]['qty'] -= 1;
+                                        itemQTY[index]['netTp']  = itemQTY[index]['qty'] * itemQTY[index]['tp'];
+                                      });
+                                    }
                                   },
                                   icon: const Icon(Icons.remove),
                                 ),
                                 Text(
-                                  itemNmumber.toString(),
+                                  itemQTY[index]['qty'].toString(),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -84,10 +108,12 @@ class _ItemPageState extends State<ItemPage> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    setState(() {
-                                      itemNmumber += 1;
-                                      itemMony();
-                                    });
+                                    if(itemQTY[index]['qty'] < 10){
+                                      setState(() {
+                                        itemQTY[index]['qty'] += 1;
+                                        itemQTY[index]['netTp']  = itemQTY[index]['qty'] * itemQTY[index]['tp'];
+                                      });
+                                    }
                                   },
                                   icon: const Icon(Icons.add),
                                 ),
@@ -104,7 +130,7 @@ class _ItemPageState extends State<ItemPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "\$${itemMonye.toString()}",
+                         "\$ ${itemQTY[index]['netTp']}",
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
