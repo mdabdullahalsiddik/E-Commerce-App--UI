@@ -1,5 +1,4 @@
 import 'package:ecommerce_ui/Static/all_colors.dart';
-import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:flutter/material.dart';
 

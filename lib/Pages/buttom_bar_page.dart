@@ -1,5 +1,4 @@
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
-import 'package:ecommerce_ui/Pages/card_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/item_page.dart';

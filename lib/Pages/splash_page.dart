@@ -1,5 +1,4 @@
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
-import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/welcome_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';

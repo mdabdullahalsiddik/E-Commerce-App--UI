@@ -61,23 +61,48 @@ class AccountPage extends StatelessWidget {
                   ),
                 ],
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    leading: Text(
-                      "Siddik",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  );
-                },
-              )
+              const ListTile(
+                leading: Icon(
+                  Icons.person,
+                  color: AllColors.primaryColor,
+                ),
+                title: Text(
+                  "Siddik",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const ListTile(
+                leading: Icon(
+                  Icons.email,
+                  color: AllColors.primaryColor,
+                ),
+                title: Text(
+                  "mabdullahalsiddik@gmail.co",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const ListTile(
+                leading: Icon(
+                  Icons.call,
+                  color: AllColors.primaryColor,
+                ),
+                title: Text(
+                  "01737374083",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
