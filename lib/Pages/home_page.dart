@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 1,
+            childAspectRatio: .9,
           ),
           itemBuilder: (context, index) {
             return InkWell(
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {},
                           icon: const Icon(
                             Icons.favorite,
-                            size: 20,
+                            size: 15,
                           ),
                         ),
                       ],

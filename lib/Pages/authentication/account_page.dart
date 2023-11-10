@@ -8,6 +8,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: costomAppbar(context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -70,7 +71,6 @@ class AccountPage extends StatelessWidget {
                   "Siddik",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -84,7 +84,6 @@ class AccountPage extends StatelessWidget {
                   "mabdullahalsiddik@gmail.co",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -98,7 +97,6 @@ class AccountPage extends StatelessWidget {
                   "01737374083",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
