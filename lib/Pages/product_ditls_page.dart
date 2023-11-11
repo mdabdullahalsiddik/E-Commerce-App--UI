@@ -4,7 +4,11 @@ import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class ProductDitlsPage extends StatefulWidget {
-  const ProductDitlsPage({super.key});
+  Map product = {};
+  ProductDitlsPage({
+    super.key,
+    required this.product,
+  });
 
   @override
   State<ProductDitlsPage> createState() => _ProductDitlsPageState();
@@ -30,16 +34,16 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: costomAppbar(
-        context: context, icon: IconButton(
-      onPressed: 
-          () {
+        context: context,
+        icon: IconButton(
+          onPressed: () {
             Navigator.pop(context);
           },
-      icon: const Icon(
-        Icons.arrow_back_outlined,
-        color: Colors.black,
-      ),
-    ),
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -48,43 +52,30 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
           ),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.favorite_border_sharp,
-                      size: 50,
-                      color: AllColors.yellowColor,
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .2,
                 child: Image.network(
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wuxE6zi1F1TiZ9y6BxufHRuqu3WXvJMWOg&usqp=CAU",
+                  widget.product["image"].toString(),
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Apple",
+                    widget.product["title"].toString(),
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "\$50",
+                    "\$${widget.product["price"].toString()}",
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: AllColors.primaryColor),
@@ -102,7 +93,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               //   ),
               // ),
               Text(
-                "Great, let's talk about sunglasses! Did you know that sunglasses not only protect your eyes from the sun's harmful rays, but they can also enhance your visual privacy and make you look fabulous? With so many styles and brands available, it can be overwhelming to choose the right pair. Consider your face shape, skin tone, and personal style when selecting a pair. And don't forget to opt for polarized lenses for added UV protection and reduced glare. Happy shopping! ",
+                widget.product["about"].toString(),
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
@@ -292,27 +283,23 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-          right: 20,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ItemPage()));
-              },
-              child: const Text(
-                "Buy Now",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-          ],
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ItemPage()));
+          },
+          child: const Text(
+            "Add to Cart",
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

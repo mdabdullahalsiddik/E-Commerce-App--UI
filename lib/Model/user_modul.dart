@@ -11,26 +11,22 @@ class UserInfoModel {
     this.mail,
     this.phone,
     this.password,
- 
   });
- UserInfoModel.fromJson(dynamic json) {
+  UserInfoModel.fromJson(dynamic json) {
     name = json['name'];
     mail = json['mail'];
     phone = json['phone'];
     password = json['password'];
-  
-    
   }
 
-  
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-   
+
+    map['name'] = name;
     map['mail'] = mail;
     map['phone'] = phone;
     map['password'] = password;
-   
- 
+
     return map;
   }
 }

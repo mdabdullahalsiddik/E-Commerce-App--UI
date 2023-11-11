@@ -14,15 +14,15 @@ class FirebaseData {
       name: name,
       phone: phone,
       password: password,
-      mail:mail,
+      mail: mail,
     );
 
-  await  FirebaseDatabase.instance
+    await FirebaseDatabase.instance
         .ref(
           "User",
         )
         .child(
-          "${phone}_${name.replaceAll(" ", "_")}_$dataKye",
+          "${mail.replaceAll(".", "")}_${name.replaceAll(" ", "_")}_$dataKye",
         )
         .set(
           user.toJson(),
@@ -37,7 +37,7 @@ class FirebaseGetData {
     List<UserInfoModel> data = [];
     await FirebaseDatabase.instance
         .ref(
-          "Nagad_User",
+          "User",
         )
         .orderByKey()
         .get()

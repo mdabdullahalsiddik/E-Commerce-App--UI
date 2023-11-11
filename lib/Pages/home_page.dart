@@ -1,5 +1,8 @@
+import 'package:ecommerce_ui/Data/data_model.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
+import 'package:ecommerce_ui/Pages/product_list.dart';
+import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,28 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> item = [
-    {
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wuxE6zi1F1TiZ9y6BxufHRuqu3WXvJMWOg&usqp=CAU",
-      "title": "shoe",
-    },
-    {
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNmk0xkYfRvSM5XV0_LS55s2c0l9PLsa5Ylg&usqp=CAU",
-      "title": "T-Shirt",
-    },
-    {
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-_Sppp-g6zzkNW8__2j6CF_eOy93WM8MFyQ&usqp=CAU",
-      "title": "Sun Glasses",
-    },
-    {
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-_Sppp-g6zzkNW8__2j6CF_eOy93WM8MFyQ&usqp=CAU",
-      "title": "Sun Glasses",
-    },
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           horizontal: 8,
         ),
         child: GridView.builder(
-          itemCount: item.length,
+          itemCount: productModel.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 1,
@@ -77,40 +58,39 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ProductDitlsPage(),
+                    builder: (context) => ProductListPage(
+                        productList: productModel[index]!['data']),
                   ),
                 );
               },
               child: Card(
+                color: AllColors.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite,
-                            size: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .1,
-                      width: MediaQuery.of(context).size.width * .4,
-                      child: Image.network(
-                        item[index]["image"],
-                        fit: BoxFit.cover,
+                    // SizedBox(
+                    //   height: MediaQuery.of(context).size.height * .1,
+                    //   //width: MediaQuery.of(context).size.width * .4,
+                    //   child: Image.network(
+                    //     productModel[index]!["image"].toString(),
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    //),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                        productModel[index]!["image"].toString(),
                       ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * .02,
                     ),
                     Text(
-                      item[index]["title"],
+                      productModel[index]!["category_title"].toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,

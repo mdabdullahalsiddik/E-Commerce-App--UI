@@ -172,17 +172,18 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (passwordController.text ==
                                   confirmpasswordController.text) {
                                 try {
-                                 await  FirebaseData().sendData(
-                                      nameController.text,
-                                      passwordController.text,
-                                      phoneController.text,
-                                      mailController.text);
+                                  await FirebaseData().sendData(
+                                    nameController.text,
+                                    passwordController.text,
+                                    phoneController.text,
+                                    mailController.text,
+                                  );
                                   FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: mailController.text,
                                     password: passwordController.text,
                                   );
-                                 
+
                                   // ignore: use_build_context_synchronously
                                   Navigator.pushAndRemoveUntil(
                                     context,
