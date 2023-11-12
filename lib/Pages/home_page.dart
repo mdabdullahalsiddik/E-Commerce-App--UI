@@ -71,14 +71,6 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).size.height * .1,
-                    //   //width: MediaQuery.of(context).size.width * .4,
-                    //   child: Image.network(
-                    //     productModel[index]!["image"].toString(),
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    //),
                     CircleAvatar(
                       radius: 50,
                       backgroundImage: NetworkImage(
