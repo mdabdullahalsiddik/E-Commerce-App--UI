@@ -20,7 +20,6 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
   int selectColor = 0;
   int lines = 1;
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +101,6 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                       },
                       child: const Text("Show Less"),
                     ),
-
               const SizedBox(
                 height: 10,
               ),
@@ -122,7 +120,6 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               const SizedBox(
                 height: 10,
               ),
-        
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -261,9 +258,15 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
         ),
         child: ElevatedButton(
           onPressed: () {
-            setState(() {
-              allProduct.add(widget.product);
-            });
+            // setState(() {
+            //   allProduct.add(widget.product);
+            // });
+            if (allProduct.contains(widget.product)) {
+            } else {
+              setState(() {
+                allProduct.add(widget.product);
+              });
+            }
           },
           child: const Text(
             "Add to Cart",

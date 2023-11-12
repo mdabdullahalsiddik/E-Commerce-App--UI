@@ -1,7 +1,7 @@
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
-import 'package:ecommerce_ui/Pages/item_page.dart';
+import 'package:ecommerce_ui/Pages/item_cart_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:flutter/material.dart';
 
