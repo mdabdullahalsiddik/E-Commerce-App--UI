@@ -65,6 +65,7 @@ class _SingInPageState extends State<SingInPage> {
                         height: 15,
                       ),
                       CostomTextField(
+                        textInputAction: TextInputAction.done,
                         controller: passwordController,
                         hintText: "Password",
                         validator: (valueKey) {

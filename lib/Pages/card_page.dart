@@ -4,7 +4,8 @@ import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:flutter/material.dart';
 
 class CardPage extends StatefulWidget {
-  const CardPage({super.key});
+  Map product = {};
+   CardPage({super.key, required this.product,});
 
   @override
   State<CardPage> createState() => _CardPageState();

@@ -1,8 +1,11 @@
+// ignore: unused_import
 import 'package:ecommerce_ui/Data/data_model.dart';
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductListPage extends StatefulWidget {
   Map productList = {};
   ProductListPage({
@@ -71,10 +74,27 @@ class _ProductListPageState extends State<ProductListPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
+                          onPressed: () {
+                            if (favoriteList.contains(data[index])) {
+                              setState(() {
+                                favoriteList.remove(
+                                  data[index],
+                                );
+                              });
+                            } else {
+                              setState(() {
+                                favoriteList.add(
+                                  data[index],
+                                );
+                              });
+                            }
+                          },
+                          icon: Icon(
                             Icons.favorite,
                             size: 15,
+                            color: favoriteList.contains(data[index]) == true
+                                ? Colors.red
+                                : Colors.black,
                           ),
                         ),
                       ],

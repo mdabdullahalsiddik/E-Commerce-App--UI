@@ -1,8 +1,10 @@
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Pages/item_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductDitlsPage extends StatefulWidget {
   Map product = {};
   ProductDitlsPage({
@@ -15,7 +17,8 @@ class ProductDitlsPage extends StatefulWidget {
 }
 
 class _ProductDitlsPageState extends State<ProductDitlsPage> {
-  double vlu = 0;
+  int selectSize = 0;
+  int selectColor = 0;
   int lines = 1;
   String selectedProductColor = '0';
   List productColorList = [
@@ -222,31 +225,60 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               //     ),
               //   ],
               // ),
-              GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5),
-                  itemBuilder: (_, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedProductColor = index.toString();
-                        });
-                      },
-                      child: index.toString() == selectedProductColor
-                          ? CircleAvatar(
-                              child: Icon(
-                                Icons.circle,
-                                color: productColorList[index],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .08,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.product["color"].length,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.height * .08,
+                            child: InkWell(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    selectColor = index;
+                                  },
+                                );
+                              },
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(
+                                    color: selectColor == index
+                                        ? Colors.black
+                                        : AllColors.primaryColor,
+                                  ),
+                                ),
+                                color: selectColor == index
+                                    ? AllColors.primaryColor
+                                    : Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    widget.product["color"][index].toString(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black.withOpacity(.5),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            )
-                          : Icon(
-                              Icons.circle,
-                              color: productColorList[index],
                             ),
-                    );
-                  }),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -266,17 +298,59 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
               const SizedBox(
                 height: 10,
               ),
-              Slider(
-                value: vlu,
-                activeColor: AllColors.yellowColor,
-                min: 0,
-                max: 100,
-                label: vlu.toString(),
-                onChanged: (value) {
-                  setState(() {
-                    vlu = value;
-                  });
-                },
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .1,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: widget.product["size"].length,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.height * .1,
+                            child: InkWell(
+                              onTap: () {
+                                setState(
+                                  () {
+                                    selectSize = index;
+                                  },
+                                );
+                              },
+                              child: Card(
+                                shape: StadiumBorder(
+                                  side: BorderSide(
+                                    color: selectSize == index
+                                        ? Colors.black
+                                        : AllColors.primaryColor,
+                                    width: .5,
+                                  ),
+                                ),
+                                color: selectSize == index
+                                    ? AllColors.primaryColor
+                                    : Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    widget.product["size"][index].toString(),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black.withOpacity(.5),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -289,8 +363,9 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
         ),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ItemPage()));
+            setState(() {
+              allProduct.add(widget.product);
+            });
           },
           child: const Text(
             "Add to Cart",

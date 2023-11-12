@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -14,31 +15,32 @@ class _ItemPageState extends State<ItemPage> {
   int money = 50;
   int itemMoney = 50;
   String selectItem = '';
-  List<Map<String,dynamic>> itemQTY = [
+
+  List<Map<String, dynamic>> itemQTY = [
     {
-      "qty" : 1,
-      "tp" : 50,
-      "netTp" : 50,
+      "qty": 1,
+      "tp": 50,
+      "netTp": 50,
     },
     {
-      "qty" : 1,
-      "tp" : 70,
-      "netTp" : 70,
+      "qty": 1,
+      "tp": 70,
+      "netTp": 70,
     },
     {
-      "qty" : 1,
-      "tp" : 60,
-      "netTp" : 60,
+      "qty": 1,
+      "tp": 60,
+      "netTp": 60,
     },
     {
-      "qty" : 1,
-      "tp" : 40,
-      "netTp" : 40,
+      "qty": 1,
+      "tp": 40,
+      "netTp": 40,
     },
     {
-      "qty" : 1,
-      "tp" : 100,
-      "netTp" : 100,
+      "qty": 1,
+      "tp": 100,
+      "netTp": 100,
     },
   ];
 
@@ -53,9 +55,9 @@ class _ItemPageState extends State<ItemPage> {
         child: ListView.builder(
           shrinkWrap: true,
           primary: false,
-          itemCount: itemQTY.length,
+          itemCount: allProduct.length,
           itemBuilder: (context, index) {
-             return Padding(
+            return Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 5,
               ),
@@ -70,17 +72,17 @@ class _ItemPageState extends State<ItemPage> {
                           vertical: 10,
                         ),
                         child: Image.network(
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6wuxE6zi1F1TiZ9y6BxufHRuqu3WXvJMWOg&usqp=CAU",
+                          allProduct[index]["image"],
                         ),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Apple",
+                          Text(
+                            allProduct[index]["title"].toString(),
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
@@ -90,10 +92,12 @@ class _ItemPageState extends State<ItemPage> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    if(itemQTY[index]['qty'] > 1){
+                                    if (itemQTY[index]['qty'] < 10) {
                                       setState(() {
                                         itemQTY[index]['qty'] -= 1;
-                                        itemQTY[index]['netTp']  = itemQTY[index]['qty'] * itemQTY[index]['tp'];
+                                        itemQTY[index]['netTp'] = itemQTY[index]
+                                                ['qty'] *
+                                            itemQTY[index]['tp'];
                                       });
                                     }
                                   },
@@ -108,10 +112,12 @@ class _ItemPageState extends State<ItemPage> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    if(itemQTY[index]['qty'] < 10){
+                                    if (itemQTY[index]['qty'] < 10) {
                                       setState(() {
                                         itemQTY[index]['qty'] += 1;
-                                        itemQTY[index]['netTp']  = itemQTY[index]['qty'] * itemQTY[index]['tp'];
+                                        itemQTY[index]['netTp'] = itemQTY[index]
+                                                ['qty'] *
+                                            itemQTY[index]['tp'];
                                       });
                                     }
                                   },
@@ -129,8 +135,22 @@ class _ItemPageState extends State<ItemPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            // Text(
+                            //   allProduct[index]["size"].toString(),
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.bold,
+                            //     color: AllColors.primaryColor,
+                            //   ),
+                            // ),
+                            // Text(
+                            //   allProduct[index]["color"].toString(),
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.bold,
+                            //     color: AllColors.primaryColor,
+                            //   ),
+                            // ),
                             Text(
-                         "\$ ${itemQTY[index]['netTp']}",
+                              "\$ ${allProduct[index]["price"]}",
                               style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
@@ -146,6 +166,27 @@ class _ItemPageState extends State<ItemPage> {
               ),
             );
           },
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        child: ElevatedButton(
+          onPressed: () {
+            setState(() {
+              allProduct.clear();
+            });
+          },
+          child: const Text(
+            "Buy Now",
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

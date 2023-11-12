@@ -1,6 +1,5 @@
 import 'package:ecommerce_ui/Data/data_model.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
-import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';

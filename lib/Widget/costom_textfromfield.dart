@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CostomTextField extends StatefulWidget {
   bool? obscureText;
+  TextInputAction? textInputAction;
   void Function(String)? onChanged;
   String? hintText;
   Widget? suffixIcon;
@@ -19,6 +20,7 @@ class CostomTextField extends StatefulWidget {
     this.prefixIcon,
     this.validator,
     this.controller,
+    this.textInputAction,
   });
 
   @override
@@ -29,6 +31,7 @@ class _CostomTextFieldState extends State<CostomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction:widget.textInputAction ?? TextInputAction.next,
       controller: widget.controller,
       validator: widget.validator,
       obscureText: widget.obscureText ?? false,
