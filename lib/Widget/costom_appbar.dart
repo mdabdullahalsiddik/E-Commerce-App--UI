@@ -10,7 +10,7 @@ Widget? title
     elevation: 0,
     backgroundColor: Colors.white,
     centerTitle: true,
-    leading: icon?? Text(""),
+    leading: icon?? const Text(""),
     title: title ??const Text(
       "Lorem ipsum",
       style: TextStyle(

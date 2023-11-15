@@ -40,6 +40,12 @@ dependencies:
   firebase_storage: ^11.4.0
   cloud_firestore: ^4.12.1
   firebase_database: ^10.3.3 
+  flutter_chat_ui: ^1.6.10
+  file_picker: ^6.1.1
+  image_picker: ^1.0.4
+  path_provider: ^2.1.1
+  uuid: ^4.2.1
+  open_filex: ^4.3.4
   
 
 dev_dependencies:

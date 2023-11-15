@@ -1,3 +1,5 @@
+
+import 'package:ecommerce_ui/Pages/chat_page.dart';
 import 'package:ecommerce_ui/Pages/splash_page.dart';
 import 'package:ecommerce_ui/firebase_system.dart';
 import 'package:firebase_core/firebase_core.dart';

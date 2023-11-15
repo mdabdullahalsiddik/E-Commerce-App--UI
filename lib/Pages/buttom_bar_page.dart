@@ -1,4 +1,5 @@
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
+import 'package:ecommerce_ui/Pages/chat_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/item_cart_page.dart';
@@ -19,6 +20,7 @@ class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
     const HomePage(),
     const FavoritePage(),
     const ItemPage(),
+    ChatPage(),
     const AccountPage()
   ];
 
@@ -57,6 +59,10 @@ class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_outlined),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message_outlined),
             label: "",
           ),
           BottomNavigationBarItem(
