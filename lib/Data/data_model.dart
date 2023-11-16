@@ -235,7 +235,12 @@ List productModel = [
       },
     },
   },
-  // {
+ 
+];
+
+
+
+ // {
   //   "image":
   //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4GuU5xsz_kNBp9LY0geJT4zWKt6WMFNZ_Nw&usqp=CAU",
   //   "category_title": "Phone",
@@ -334,4 +339,3 @@ List productModel = [
   //     },
   //   ],
   // },
-];

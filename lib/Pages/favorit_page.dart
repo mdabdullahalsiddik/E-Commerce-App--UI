@@ -1,5 +1,6 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
+import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:flutter/material.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -13,6 +14,18 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          "Favorite",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
@@ -37,6 +50,12 @@ class _FavoritePageState extends State<FavoritePage> {
                 );
               },
               child: Card(
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: AllColors.primaryColor,
+                    width: 2.0,
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
