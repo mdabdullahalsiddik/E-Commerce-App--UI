@@ -48,7 +48,10 @@ class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: costomAppbar(context: context),
+      backgroundColor: Colors.white,
+      appBar: costomAppbar(context: context,
+      title: Text("Cart", style: TextStyle(color: Colors.black,),)
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10,

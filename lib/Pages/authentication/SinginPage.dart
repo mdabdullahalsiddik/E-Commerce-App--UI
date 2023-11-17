@@ -9,8 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-
-
 class SingInPage extends StatefulWidget {
   const SingInPage({super.key});
 
@@ -27,12 +25,13 @@ class _SingInPageState extends State<SingInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "Lorem ipsum",
+          "E-Shop",
           style: TextStyle(
             color: Colors.black,
             fontSize: 50,
@@ -40,92 +39,96 @@ class _SingInPageState extends State<SingInPage> {
           ),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Form(
-                  key: formkey,
-                  child: Column(
-                    children: [
-                      CostomTextField(
-                        controller: mailController,
-                        hintText: "Email",
-                        validator: (valueKey) {
-                          if (valueKey!.isEmpty) {
-                            return ("Enter your mail");
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      CostomTextField(
-                        textInputAction: TextInputAction.done,
-                        controller: passwordController,
-                        hintText: "Password",
-                        validator: (valueKey) {
-                          if (valueKey!.isEmpty) {
-                            return ("Enter your password");
-                          }
-                          return null;
-                        },
-                        obscureText: !passwordValidator,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                passwordValidator = !passwordValidator;
-                              },
-                            );
-                          },
-                          icon: Icon(
-                            passwordValidator
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: AllColors.primaryColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Form(
+                    key: formkey,
+                    child: Column(
                       children: [
+                        CostomTextField(
+                          controller: mailController,
+                          hintText: "Email",
+                          validator: (valueKey) {
+                            if (valueKey!.isEmpty) {
+                              return ("Enter your mail");
+                            }
+                            return null;
+                          },
+                        ),
                         SizedBox(
-                          width: 22,
-                          child: Checkbox(
-                            activeColor: AllColors.yellowColor,
-                            value: value,
-                            onChanged: (val) {
-                              setState(() {
-                                value = val!;
-                              });
+                          height: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        CostomTextField(
+                          textInputAction: TextInputAction.done,
+                          controller: passwordController,
+                          hintText: "Password",
+                          validator: (valueKey) {
+                            if (valueKey!.isEmpty) {
+                              return ("Enter your password");
+                            }
+                            return null;
+                          },
+                          obscureText: !passwordValidator,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  passwordValidator = !passwordValidator;
+                                },
+                              );
                             },
+                            icon: Icon(
+                              passwordValidator
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: AllColors.primaryColor,
+                            ),
                           ),
                         ),
-                        const Text(
-                          "Remember",
-                          style: TextStyle(
-                            fontSize: 13,
-                          ),
-                        )
                       ],
                     ),
-                    Expanded(
-                      child: TextButton(
+                  ),
+                   SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 22,
+                            child: Checkbox(
+                              activeColor: AllColors.yellowColor,
+                              value: value,
+                              onChanged: (val) {
+                                setState(() {
+                                  value = val!;
+                                });
+                              },
+                            ),
+                          ),
+                          const Text(
+                            "Remember",
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
+                          )
+                        ],
+                      ),
+                      TextButton(
                         onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OTPPage()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OTPPage()));
                         },
                         child: const Text(
                           "Forgot your password ?",
@@ -138,50 +141,49 @@ class _SingInPageState extends State<SingInPage> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CostomButton(
-                  onTap: () async {
-                          if (formkey.currentState!.validate()) {
-                           
-                            try {
-                              await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                    email: mailController.text,
-                                    password: passwordController.text,
-                                  )
-                                  .then(
-                                    (value) => Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BottomNavigatorBarPage(),
-                                      ),
-                                      (route) => false,
-                                    ),
-                                  );
-                            } catch (e) {
-                              // ignore: use_build_context_synchronously
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    e.toString(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CostomButton(
+                    onTap: () async {
+                      if (formkey.currentState!.validate()) {
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                email: mailController.text,
+                                password: passwordController.text,
+                              )
+                              .then(
+                                (value) => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BottomNavigatorBarPage(),
                                   ),
+                                  (route) => false,
                                 ),
                               );
-                            }
-                          }
-                        },
-                  text: "Lorem iqsum",
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
+                        } catch (e) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                e.toString(),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    text: "Sing In",
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

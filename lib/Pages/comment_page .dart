@@ -8,6 +8,7 @@ class CommentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: costomAppbar(
         context: context,
         icon: IconButton(

@@ -9,6 +9,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -20,7 +21,7 @@ class WelcomePage extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                "SHOPPING APP",
+                "E-Shop",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFFF7CE6A),
@@ -34,7 +35,7 @@ class WelcomePage extends StatelessWidget {
               Column(
                 children: [
                   const Text(
-                    "Lorem!",
+                    "Welcome!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -60,7 +61,7 @@ class WelcomePage extends StatelessWidget {
                         (route) => false,
                       );
                     },
-                    text: "Lorem iqsum",
+                    text: "Start",
                   ),
                 ],
               ),
@@ -69,7 +70,7 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Lorem issue dolor sit amet. consecrate disciplining elite. sed",
+                      "Shopping your favorite products.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 22,

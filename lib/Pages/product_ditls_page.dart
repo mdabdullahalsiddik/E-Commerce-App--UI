@@ -23,6 +23,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: costomAppbar(
         context: context,
         icon: IconButton(

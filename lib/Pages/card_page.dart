@@ -15,6 +15,7 @@ class _CardPageState extends State<CardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: costomAppbar(context: context, icon: IconButton(
       onPressed: 
           () {

@@ -27,6 +27,7 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: pages[selectIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 0,

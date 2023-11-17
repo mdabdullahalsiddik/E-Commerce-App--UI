@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecommerce_ui/Data/data_model.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
@@ -51,148 +53,249 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-          child: ListView(
-        children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text("data"),
-            accountEmail: Text("data"),
-          ),
-          ListTile(
-            leading: IconButton(
-              onPressed: () {
-                setState(() {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const SingInPage(),
-                    ),
-                    (route) => false,
+    return WillPopScope(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          drawer: Drawer(
+              child: ListView(
+            children: [
+              const UserAccountsDrawerHeader(
+                accountName: Text("data"),
+                accountEmail: Text("data"),
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Confirmation"),
+                        content: const Text("Are you sura exit."),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                  style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      AllColors.primaryColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context, false);
+                                  },
+                                  child: const Text(
+                                    "No",
+                                    style: TextStyle(color: Colors.black),
+                                  )),
+                              ElevatedButton(
+                                  style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      AllColors.primaryColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      FirebaseAuth.instance.signOut();
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => const SingInPage(),
+                                        ),
+                                        (route) => false,
+                                      );
+                                    });
+                                  },
+                                  child: const Text("Yes",
+                                      style: TextStyle(color: Colors.black))),
+                            ],
+                          )
+                        ],
+                      );
+                    },
                   );
-                });
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.black,
-              ),
-            ),
-            title: const Text(
-              "Log Out",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )
-        ],
-      )),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-        ),
-        child: Column(
-          children: [
-            CostomTextField(
-              controller: searchController,
-              onChanged: (p0) {
-                setState(() {
-                  searchData(p0);
-                });
-              },
-              hintText: "Search",
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              suffixIcon: searchController.text.isEmpty
-                  ? null
-                  : IconButton(
-                      onPressed: () {
-                        setState(() {
-                          searchList.clear();
-                          searchController.clear();
-                          for (var element in productModel) {
-                            searchList.add(element);
-                          }
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.black,
-                      ),
+                },
+                child: ListTile(
+                  leading: IconButton(
+                    onPressed: () {
+                      // setState(() {
+                      //   FirebaseAuth.instance.signOut();
+                      //   Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (_) => const SingInPage(),
+                      //     ),
+                      //     (route) => false,
+                      //   );
+                      // });
+                    },
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.black,
                     ),
+                  ),
+                  title: const Text(
+                    "Log Out",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )),
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(
+              color: Colors.black,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .02,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
             ),
-            searchList.isEmpty
-                ? const Center(child: Text("Not Found"))
-                : Expanded(
-                    child: GridView.builder(
-                      itemCount: searchList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 1,
-                        childAspectRatio: .9,
-                      ),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductListPage(
-                                    productList: searchList[index]!['data']),
+            child: Column(
+              children: [
+                CostomTextField(
+                  controller: searchController,
+                  onChanged: (p0) {
+                    setState(() {
+                      searchData(p0);
+                    });
+                  },
+                  hintText: "Search",
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  suffixIcon: searchController.text.isEmpty
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              searchList.clear();
+                              searchController.clear();
+                              for (var element in productModel) {
+                                searchList.add(element);
+                              }
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.black,
+                          ),
+                        ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                searchList.isEmpty
+                    ? const Center(child: Text("Not Found"))
+                    : Expanded(
+                        child: GridView.builder(
+                          itemCount: searchList.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 1,
+                            childAspectRatio: .9,
+                          ),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductListPage(
+                                        productList:
+                                            searchList[index]!['data']),
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                color: AllColors.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage: NetworkImage(
+                                        searchList[index]!["image"].toString(),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .02,
+                                    ),
+                                    Text(
+                                      searchList[index]!["category_title"]
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           },
-                          child: Card(
-                            color: AllColors.primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 50,
-                                  backgroundImage: NetworkImage(
-                                    searchList[index]!["image"].toString(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .02,
-                                ),
-                                Text(
-                                  searchList[index]!["category_title"]
-                                      .toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
+                        ),
+                      ),
+              ],
+            ),
+          ),
+        ),
+        onWillPop: () async {
+          return (await showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Confirmation"),
+                content: const Text("Are you sura exit."),
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AllColors.primaryColor,
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-          ],
-        ),
-      ),
-    );
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                          child: const Text(
+                            "No",
+                            style: TextStyle(color: Colors.black),
+                          )),
+                      ElevatedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              AllColors.primaryColor,
+                            ),
+                          ),
+                          onPressed: () {
+                            exit(0);
+                          },
+                          child: const Text("Yes",
+                              style: TextStyle(color: Colors.black))),
+                    ],
+                  )
+                ],
+              );
+            },
+          ));
+        });
   }
 }

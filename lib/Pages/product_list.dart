@@ -52,8 +52,10 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: costomAppbar(
         context: context,
+        
         icon: IconButton(
           onPressed: () {
             Navigator.pop(context);

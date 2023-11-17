@@ -29,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -43,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       "Create Account",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: AllColors.primaryColor,
+                        color: Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
                       ),
