@@ -8,7 +8,7 @@ class OTPPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: Text("Lorem Issum"),),
+      appBar: AppBar(centerTitle: true,title: const Text("Lorem Issum"),),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

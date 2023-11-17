@@ -14,6 +14,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List searchList = [];
+  TextEditingController searchController = TextEditingController();
+  @override
+  void initState() {
+    setState(() {
+      for (var element in productModel) {
+        searchList.add(element);
+      }
+    });
+
+    super.initState();
+  }
+
+  void searchData(String value) {
+    if (value.isNotEmpty) {
+      setState(() {
+        searchList = searchList
+            .where(
+              (element) =>
+                  element["category_title"].toString().toLowerCase().contains(
+                        value.toLowerCase(),
+                      ),
+            )
+            .toList();
+      });
+    } else {
+      setState(() {
+        searchList.clear();
+        for (var element in productModel) {
+          searchList.add(element);
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,68 +102,94 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             CostomTextField(
+              controller: searchController,
+              onChanged: (p0) {
+                setState(() {
+                  searchData(p0);
+                });
+              },
               hintText: "Search",
-              prefixIcon: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search,
-                ),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.black,
               ),
+              suffixIcon: searchController.text.isEmpty
+                  ? null
+                  : IconButton(
+                      onPressed: () {
+                        setState(() {
+                          searchList.clear();
+                          searchController.clear();
+                          for (var element in productModel) {
+                            searchList.add(element);
+                          }
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
+                    ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * .02,
             ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: productModel.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 1,
-                  childAspectRatio: .9,
-                ),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductListPage(
-                              productList: productModel[index]!['data']),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      color: AllColors.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+            searchList.isEmpty
+                ? const Center(child: Text("Not Found"))
+                : Expanded(
+                    child: GridView.builder(
+                      itemCount: searchList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 1,
+                        childAspectRatio: .9,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(
-                              productModel[index]!["image"].toString(),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductListPage(
+                                    productList: searchList[index]!['data']),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            color: AllColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: NetworkImage(
+                                    searchList[index]!["image"].toString(),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * .02,
+                                ),
+                                Text(
+                                  searchList[index]!["category_title"]
+                                      .toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * .02,
-                          ),
-                          Text(
-                            productModel[index]!["category_title"].toString(),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          )
-                        ],
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
           ],
         ),
       ),

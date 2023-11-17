@@ -6,21 +6,21 @@ import 'package:ecommerce_ui/Pages/item_cart_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:flutter/material.dart';
 
-class ButtomNavigatorBarPage extends StatefulWidget {
-  const ButtomNavigatorBarPage({super.key});
+class BottomNavigatorBarPage extends StatefulWidget {
+  const BottomNavigatorBarPage({super.key});
 
   @override
-  State<ButtomNavigatorBarPage> createState() => _ButtomNavigatorBarPageState();
+  State<BottomNavigatorBarPage> createState() => _BottomNavigatorBarPageState();
 }
 
-class _ButtomNavigatorBarPageState extends State<ButtomNavigatorBarPage> {
+class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
   int selectIndex = 0;
 
   List<Widget> pages = [
     const HomePage(),
     const FavoritePage(),
     const ItemPage(),
-    ChatPage(),
+    const ChatPage(),
     const AccountPage()
   ];
 

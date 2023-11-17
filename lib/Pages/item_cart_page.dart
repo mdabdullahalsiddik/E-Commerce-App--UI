@@ -1,4 +1,5 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
+import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -168,27 +169,48 @@ class _ItemPageState extends State<ItemPage> {
           },
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-        child: ElevatedButton(
-          onPressed: () {
-            setState(() {
-              allProduct.clear();
-            });
-          },
-          child: const Text(
-            "Buy Now",
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      bottomNavigationBar: allProduct.isEmpty
+          ? Center(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const BottomNavigatorBarPage(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Add Item",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    allProduct.clear();
+                  });
+                },
+                child: const Text(
+                  "Buy Now",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

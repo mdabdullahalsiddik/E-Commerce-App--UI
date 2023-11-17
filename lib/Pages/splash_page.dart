@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
             context,
             MaterialPageRoute(
               builder: (context) => FirebaseAuth.instance.currentUser != null
-                  ? const ButtomNavigatorBarPage()
+                  ? const BottomNavigatorBarPage()
                   : const WelcomePage(),
             ),
             (route) => false);

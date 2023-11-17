@@ -32,7 +32,7 @@ class _SingInPageState extends State<SingInPage> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          "Lorem iqsum",
+          "Lorem ipsum",
           style: TextStyle(
             color: Colors.black,
             fontSize: 50,
@@ -125,7 +125,7 @@ class _SingInPageState extends State<SingInPage> {
                     Expanded(
                       child: TextButton(
                         onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> OTPPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OTPPage()));
                         },
                         child: const Text(
                           "Forgot your password ?",
@@ -159,7 +159,7 @@ class _SingInPageState extends State<SingInPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const ButtomNavigatorBarPage(),
+                                            const BottomNavigatorBarPage(),
                                       ),
                                       (route) => false,
                                     ),
