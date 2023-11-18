@@ -12,46 +12,18 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
-  int itemNumber = 1;
-  int money = 50;
-  int itemMoney = 50;
-  String selectItem = '';
-
-  List<Map<String, dynamic>> itemQTY = [
-    {
-      "qty": 1,
-      "tp": 50,
-      "netTp": 50,
-    },
-    {
-      "qty": 1,
-      "tp": 70,
-      "netTp": 70,
-    },
-    {
-      "qty": 1,
-      "tp": 60,
-      "netTp": 60,
-    },
-    {
-      "qty": 1,
-      "tp": 40,
-      "netTp": 40,
-    },
-    {
-      "qty": 1,
-      "tp": 100,
-      "netTp": 100,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: costomAppbar(context: context,
-      title: Text("Cart", style: TextStyle(color: Colors.black,),)
-      ),
+      appBar: costomAppbar(
+          context: context,
+          title: const Text(
+            "Cart",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          )),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -59,7 +31,7 @@ class _ItemPageState extends State<ItemPage> {
         child: ListView.builder(
           shrinkWrap: true,
           primary: false,
-          itemCount: allProduct.length,
+          itemCount: cartItemList.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(
@@ -76,7 +48,7 @@ class _ItemPageState extends State<ItemPage> {
                           vertical: 10,
                         ),
                         child: Image.network(
-                          allProduct[index]["image"],
+                          cartItemList[index].image.toString(),
                         ),
                       ),
                       Column(
@@ -84,7 +56,7 @@ class _ItemPageState extends State<ItemPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            allProduct[index]["title"].toString(),
+                            cartItemList[index].title.toString(),
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                               fontSize: 24,
@@ -96,19 +68,19 @@ class _ItemPageState extends State<ItemPage> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    if (itemQTY[index]['qty'] < 10) {
+                                    if (cartItemList[index].quantity > 1) {
                                       setState(() {
-                                        itemQTY[index]['qty'] -= 1;
-                                        itemQTY[index]['netTp'] = itemQTY[index]
-                                                ['qty'] *
-                                            itemQTY[index]['tp'];
+                                        cartItemList[index].quantity -= 1;
+                                        cartItemList[index].price =
+                                            cartItemList[index].quantity *
+                                                cartItemList[index].totalPrice;
                                       });
                                     }
                                   },
                                   icon: const Icon(Icons.remove),
                                 ),
                                 Text(
-                                  itemQTY[index]['qty'].toString(),
+                                  cartItemList[index].quantity.toString(),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -116,12 +88,13 @@ class _ItemPageState extends State<ItemPage> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    if (itemQTY[index]['qty'] < 10) {
+                                    if (cartItemList[index].quantity < 10) {
                                       setState(() {
-                                        itemQTY[index]['qty'] += 1;
-                                        itemQTY[index]['netTp'] = itemQTY[index]
-                                                ['qty'] *
-                                            itemQTY[index]['tp'];
+                                        cartItemList[index].quantity += 1;
+
+                                        cartItemList[index].price =
+                                            cartItemList[index].quantity *
+                                                cartItemList[index].totalPrice;
                                       });
                                     }
                                   },
@@ -139,24 +112,23 @@ class _ItemPageState extends State<ItemPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            // Text(
-                            //   allProduct[index]["size"].toString(),
-                            //   style: const TextStyle(
-                            //     fontWeight: FontWeight.bold,
-                            //     color: AllColors.primaryColor,
-                            //   ),
-                            // ),
-                            // Text(
-                            //   allProduct[index]["color"].toString(),
-                            //   style: const TextStyle(
-                            //     fontWeight: FontWeight.bold,
-                            //     color: AllColors.primaryColor,
-                            //   ),
-                            // ),
                             Text(
-                              "\$ ${allProduct[index]["price"]}",
+                              "Size: ${cartItemList[index].size.toString()}",
                               style: const TextStyle(
-                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: AllColors.primaryColor,
+                              ),
+                            ),
+                            Text(
+                              "Color: ${cartItemList[index].color.toString()}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AllColors.primaryColor,
+                              ),
+                            ),
+                            Text(
+                              "\$ ${cartItemList[index].price.toString()}",
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AllColors.primaryColor,
                               ),
@@ -172,7 +144,7 @@ class _ItemPageState extends State<ItemPage> {
           },
         ),
       ),
-      bottomNavigationBar: allProduct.isEmpty
+      bottomNavigationBar: cartItemList.isEmpty
           ? Center(
               child: TextButton(
                 onPressed: () {
@@ -201,7 +173,7 @@ class _ItemPageState extends State<ItemPage> {
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    allProduct.clear();
+                    cartItemList.clear();
                   });
                 },
                 child: const Text(

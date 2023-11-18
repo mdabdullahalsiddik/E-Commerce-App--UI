@@ -5,18 +5,15 @@ List productModel = [
     "category_title": "Shoe",
     "data": {
       "1": {
+        "product_id": "1",
         "image":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJlAHNoMtq8wjj5Zh-Z1Q5Pj1wtVDRZf9Egw&usqp=CAU",
         "title": "Bate Elite",
         "price": 99,
-    "quantity":1,
+        "quantity": 1,
         "about":
             "Whiskers – maker of men’s and women’s premium, golf-specific shoelaces – has established a “Pretty in Pink” philanthropic program during Breast Cancer Awareness Month.",
-        "size": [
-          "8",
-          "9",
-        "10"
-        ],
+        "size": ["8", "9", "10"],
         "color": [
           "White",
           "Black",
@@ -30,7 +27,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIXeRpqA7kyWkddd3VSfUVtGq5DJ-QEGl9zg&usqp=CAU",
         "title": "Bate Sport",
         "price": 499,
-         "quantity":1,
+        "quantity": 1,
         "about":
             "The above green transparent sports shoes PNG image is designed by our dedicated and professional designers. They are good at catching the latest design trend and removing background from images. These sports shoes, gym shoes, green transparent PNG images are especially helpful in your daily design. You don't need to search for other online background removal tools. Come to Puggree and your problem will be solved.",
         "size": [
@@ -52,7 +49,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUciDR-jcP9dXmRz-ALFnuxNjEfZnlRWLF-w&usqp=CAU",
         "title": "Bate Winter Sport ",
         "price": 599,
-         "quantity":1,
+        "quantity": 1,
         "about":
             "The above green transparent sports shoes PNG image is designed by our dedicated and professional designers. They are good at catching the latest design trend and removing background from images. These sports shoes, gym shoes, green transparent PNG images are especially helpful in your daily design. You don't need to search for other online background removal tools. Come to Puggree and your problem will be solved.",
         "size": [
@@ -81,7 +78,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_CixyAFXn3lhE6cceS9am3_kbFdHBkr__kQ&usqp=CAU",
         "title": "Cool T-Shirt",
         "price": 89,
-         "quantity":1,
+        "quantity": 1,
         "about":
             "Anyone who donates 75 or more can choose to order a Warrior Workout Challenge T-shirt and anyone who donates 100 or more can choose to order a Warrior Workout Challenge Sweat-shirt OR T-shirt.",
         "size": [
@@ -103,7 +100,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU5FRN4Y6KjH55YReQWRfA6aKQZDX4LhOn6A&usqp=CAU",
         "title": "Cool T-Shirt",
         "price": 59,
-         "quantity":1,
+        "quantity": 1,
         "about":
             "Anyone who donates 75 or more can choose to order a Warrior Workout Challenge T-shirt and anyone who donates 100 or more can choose to order a Warrior Workout Challenge Sweat-shirt OR T-shirt.",
         "size": [
@@ -124,7 +121,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRifNoTOYuhRTa97PB-H7g0BwJmTwAYZTmAkg&usqp=CAU",
         "title": "Hot T-Shirt",
         "price": 59,
-         "quantity":1,
+        "quantity": 1,
         "about":
             "Anyone who donates 75 or more can choose to order a Warrior Workout Challenge T-shirt and anyone who donates 100 or more can choose to order a Warrior Workout Challenge Sweat-shirt OR T-shirt.",
         "size": [
@@ -148,7 +145,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTKcxtofw3Y2nxUzx1JqjyvQZlSN8IGOPiaw&usqp=CAU",
         "title": "HP Laptop",
         "price": 2999,
-         "quantity":1,
+        "quantity": 1,
         "about": "Laptop is a small, powerful personal computer.",
         "size": [
           "14",
@@ -156,7 +153,7 @@ List productModel = [
           "16",
           "19",
         ],
-        "color": [],
+        "color": ['black'],
       },
       "2": {
         "product_id": "2",
@@ -164,7 +161,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTKcxtofw3Y2nxUzx1JqjyvQZlSN8IGOPiaw&usqp=CAU",
         "title": "Dell Laptop",
         "price": 1999,
-         "quantity":1,
+        "quantity": 1,
         "about": "Laptop is a small, powerful personal computer.",
         "size": [
           "14",
@@ -187,7 +184,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBPsBTWXBE_e45TA6lq3rIhYDMsrlsfTM3g&usqp=CAU",
         "title": "Orange Juice",
         "price": 10,
-         "quantity":1,
+        "quantity": 1,
         "about": "Juice is good for health.",
         "size": [],
         "color": [],
@@ -205,7 +202,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-KLL-4zySw7epjkKDbKKKtnoXhYfdh5A1DQ&usqp=CAU",
         "title": "LG TV",
         "price": 3999,
-         "quantity":1,
+        "quantity": 1,
         "about": "TV is most useful electronic device.",
         "size": [
           "14",
@@ -222,7 +219,7 @@ List productModel = [
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdp8DhARpfXB4fR8hive2d-ckvMcsGM6k3EQ&usqp=CAU",
         "title": "SONY TV",
         "price": 5999,
-         "quantity":1,
+        "quantity": 1,
         "about": "TV is most useful electronic device.",
         "size": [
           "14",
@@ -235,7 +232,6 @@ List productModel = [
       },
     },
   },
- 
 ];
 
 

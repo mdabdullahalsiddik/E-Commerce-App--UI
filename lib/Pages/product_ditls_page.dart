@@ -1,4 +1,6 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
+import 'package:ecommerce_ui/Model/all_model.dart';
+import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -262,12 +264,37 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
             // setState(() {
             //   allProduct.add(widget.product);
             // });
-            if (allProduct.contains(widget.product)) {
+            if (cartItemList.contains(
+              widget.product.values.toList()
+            )) {
             } else {
               setState(() {
-                allProduct.add(widget.product);
+                cartItemList.add(
+                  CartItemModel(
+                    title: widget.product['title'],
+                    id: widget.product['product_id'],
+                    image: widget.product['image'],
+                    color: widget.product["color"].toString().isEmpty
+                        ? widget.product["color"][selectSize].toString()
+                        : '',
+                    size: widget.product["size"].toString().isEmpty
+                        ? widget.product["size"][selectSize].toString()
+                        : '',
+                    quantity: widget.product['quantity'],
+                    price: widget.product['price'],
+                    totalPrice: widget.product['price'],
+                  ),
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        const BottomNavigatorBarPage(),
+                  ),
+                );
               });
             }
+            print(cartItemList);
           },
           child: const Text(
             "Add to Cart",

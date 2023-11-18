@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
-import 'package:ecommerce_ui/Pages/home_page.dart';
+import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
@@ -190,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
+                                      builder: (context) => const BottomNavigatorBarPage(),
                                     ),
                                     (route) => false,
                                   );

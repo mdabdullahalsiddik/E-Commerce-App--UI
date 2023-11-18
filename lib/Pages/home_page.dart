@@ -17,12 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List searchList = [];
+  List finalSearchList = [];
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     setState(() {
+      searchList = finalSearchList;
       for (var element in productModel) {
-        searchList.add(element);
+        finalSearchList.add(element);
       }
     });
 
@@ -30,25 +32,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   void searchData(String value) {
-    if (value.isNotEmpty) {
-      setState(() {
-        searchList = searchList
-            .where(
-              (element) =>
-                  element["category_title"].toString().toLowerCase().contains(
-                        value.toLowerCase(),
-                      ),
-            )
-            .toList();
-      });
-    } else {
-      setState(() {
-        searchList.clear();
-        for (var element in productModel) {
-          searchList.add(element);
-        }
-      });
-    }
+    setState(() {
+      searchList = finalSearchList
+          .where(
+            (element) =>
+                element["category_title"].toString().toLowerCase().contains(
+                      value.toLowerCase(),
+                    ),
+          )
+          .toList();
+    });
   }
 
   @override
@@ -210,8 +203,10 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListPage(
-                                        productList:
-                                            searchList[index]!['data']),
+                                      productList: searchList[index]!['data'],
+                                      title:
+                                          searchList[index]!["category_title"],
+                                    ),
                                   ),
                                 );
                               },

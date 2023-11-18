@@ -11,5 +11,9 @@
         "Oppo",
         "Singin",
         "textfromfield"
-    ]
+    ],
+    "debug.hideLauncherWhileDebugging": false,
+    "zenMode.hideStatusBar": false,
+    "versionlens.showDependencyStatusesAtStartup": true,
+    "versionlens.showTaggedVersionsAtStartup": true
 }

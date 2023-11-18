@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
 import 'package:ecommerce_ui/Pages/chat_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
@@ -14,6 +15,14 @@ class BottomNavigatorBarPage extends StatefulWidget {
 }
 
 class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      cartItemList.length;
+    });
+  }
+
   int selectIndex = 0;
 
   List<Widget> pages = [
@@ -39,6 +48,7 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
           setState(
             () {
               selectIndex = index;
+             
             },
           );
         },
@@ -48,25 +58,43 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
         unselectedIconTheme: IconThemeData(
           color: Colors.black.withOpacity(0.5),
         ),
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
               ),
               label: ""),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border_sharp),
+            icon: Badge(
+              label: Text(
+                favoriteList.length.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              child: const Icon(Icons.favorite_outline),
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
+            icon: Badge(
+              label: Text(
+                cartItemList.length.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              child: const Icon(Icons.shopping_cart_outlined),
+            ),
             label: "",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined),
             label: "",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "",
           ),
