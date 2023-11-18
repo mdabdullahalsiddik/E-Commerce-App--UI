@@ -9,7 +9,7 @@ List productModel = [
         "image":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJlAHNoMtq8wjj5Zh-Z1Q5Pj1wtVDRZf9Egw&usqp=CAU",
         "title": "Bate Elite",
-        "price": 99,
+        "price": 99.0,
         "quantity": 1,
         "about":
             "Whiskers – maker of men’s and women’s premium, golf-specific shoelaces – has established a “Pretty in Pink” philanthropic program during Breast Cancer Awareness Month.",
@@ -144,7 +144,7 @@ List productModel = [
         "image":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTKcxtofw3Y2nxUzx1JqjyvQZlSN8IGOPiaw&usqp=CAU",
         "title": "HP Laptop",
-        "price": 2999,
+        "price": 2999.0,
         "quantity": 1,
         "about": "Laptop is a small, powerful personal computer.",
         "size": [
@@ -183,7 +183,7 @@ List productModel = [
         "image":
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBPsBTWXBE_e45TA6lq3rIhYDMsrlsfTM3g&usqp=CAU",
         "title": "Orange Juice",
-        "price": 10,
+        "price": 10.0,
         "quantity": 1,
         "about": "Juice is good for health.",
         "size": [],

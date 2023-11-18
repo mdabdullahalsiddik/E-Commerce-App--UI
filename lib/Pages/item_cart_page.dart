@@ -113,14 +113,18 @@ class _ItemPageState extends State<ItemPage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "Size: ${cartItemList[index].size.toString()}",
+                              cartItemList[index].size == null
+                                  ? ''
+                                  : "Size: ${cartItemList[index].size.toString()}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AllColors.primaryColor,
                               ),
                             ),
                             Text(
-                              "Color: ${cartItemList[index].color.toString()}",
+                              cartItemList[index].color == null
+                                  ? ''
+                                  : "Color: ${cartItemList[index].color.toString()}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AllColors.primaryColor,

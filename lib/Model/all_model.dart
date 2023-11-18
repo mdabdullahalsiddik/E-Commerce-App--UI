@@ -3,11 +3,11 @@ class CartItemModel {
   String? title;
   String? image;
   int? quantity;
-  int? price;
-  int? totalPrice;
+  var price;
+  var totalPrice;
   String? id;
   String? size;
-  String? color ;
+  String? color;
   CartItemModel({
     this.title,
     this.image,
@@ -18,4 +18,15 @@ class CartItemModel {
     this.size,
     this.color,
   });
+}
+
+class FavoriteItemModel {
+  String? product_id;
+  String? image;
+  String? title;
+  double? price;
+  int? quantity;
+  String? about;
+  List? size;
+  List? color;
 }

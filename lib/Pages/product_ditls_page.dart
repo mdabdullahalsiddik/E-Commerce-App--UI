@@ -264,9 +264,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
             // setState(() {
             //   allProduct.add(widget.product);
             // });
-            if (cartItemList.contains(
-              widget.product.values.toList()
-            )) {
+            if (cartItemList.contains(widget.product.values.toList())) {
             } else {
               setState(() {
                 cartItemList.add(
@@ -274,12 +272,12 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                     title: widget.product['title'],
                     id: widget.product['product_id'],
                     image: widget.product['image'],
-                    color: widget.product["color"].toString().isEmpty
-                        ? widget.product["color"][selectSize].toString()
-                        : '',
-                    size: widget.product["size"].toString().isEmpty
-                        ? widget.product["size"][selectSize].toString()
-                        : '',
+                    color: widget.product["color"].isEmpty
+                        ? null
+                        : widget.product["color"][selectSize].toString(),
+                    size: widget.product["size"].isEmpty
+                        ? null
+                        : widget.product["size"][selectSize].toString(),
                     quantity: widget.product['quantity'],
                     price: widget.product['price'],
                     totalPrice: widget.product['price'],
