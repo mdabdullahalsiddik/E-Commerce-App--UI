@@ -177,6 +177,13 @@ class _ItemPageState extends State<ItemPage> {
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Order Successful",
+                        ),
+                      ),
+                    );
                     cartItemList.clear();
                   });
                 },
