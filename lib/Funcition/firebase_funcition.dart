@@ -23,7 +23,7 @@ class FirebaseData {
           "User",
         )
         .child(
-          "${mail.replaceAll(".", "")}_${name.replaceAll(" ", "_")}_$dataKye",
+          "${mail.replaceAll(".", "")}",
         )
         .set(
           user.toJson(),

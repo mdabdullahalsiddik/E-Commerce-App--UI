@@ -1,12 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:ecommerce_ui/Data/data_model.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
+import 'package:ecommerce_ui/Model/user_modul.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,96 +61,131 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
         child: Scaffold(
           backgroundColor: Colors.white,
-          drawer: Drawer(
-              child: ListView(
-            children: [
-              const UserAccountsDrawerHeader(
-                accountName: Text("data"),
-                accountEmail: Text("data"),
-              ),
-              InkWell(
-                onTap: () {
-                  showDialog(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text("Confirmation"),
-                        content: const Text("Are you sura exit."),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton(
-                                  style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                      AllColors.primaryColor,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context, false);
-                                  },
-                                  child: const Text(
-                                    "No",
-                                    style: TextStyle(color: Colors.black),
-                                  )),
-                              ElevatedButton(
-                                  style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                      AllColors.primaryColor,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      FirebaseAuth.instance.signOut();
-                                      Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => const SingInPage(),
-                                        ),
-                                        (route) => false,
-                                      );
-                                    });
-                                  },
-                                  child: const Text("Yes",
-                                      style: TextStyle(color: Colors.black))),
-                            ],
-                          )
-                        ],
-                      );
-                    },
+          drawer: StreamBuilder(
+              stream: FirebaseDatabase.instance
+                  .ref("User")
+                  .child(FirebaseAuth.instance.currentUser!.email
+                      .toString()
+                      .replaceAll(".", ""))
+                  .get()
+                  .then(
+                    (value) => UserInfoModel.fromJson(
+                      jsonDecode(
+                        jsonEncode(value.value as Map),
+                      ),
+                    ),
+                  )
+                  .asStream(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Drawer(
+                    child: ListView(
+                      children: [
+                        UserAccountsDrawerHeader(
+                          accountName: Text(
+                            snapshot.data!.name.toString(),
+                          ),
+                          accountEmail: Text(
+                            snapshot.data!.mail.toString(),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              barrierDismissible: true,
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Confirmation"),
+                                  content: const Text("Are you sura exit."),
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        ElevatedButton(
+                                            style: const ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                AllColors.primaryColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context, false);
+                                            },
+                                            child: const Text(
+                                              "No",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            )),
+                                        ElevatedButton(
+                                            style: const ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                AllColors.primaryColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                FirebaseAuth.instance.signOut();
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        const SingInPage(),
+                                                  ),
+                                                  (route) => false,
+                                                );
+                                              });
+                                            },
+                                            child: const Text("Yes",
+                                                style: TextStyle(
+                                                    color: Colors.black))),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: ListTile(
+                            leading: IconButton(
+                              onPressed: () {
+                                // setState(() {
+                                //   FirebaseAuth.instance.signOut();
+                                //   Navigator.pushAndRemoveUntil(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (_) => const SingInPage(),
+                                //     ),
+                                //     (route) => false,
+                                //   );
+                                // });
+                              },
+                              icon: const Icon(
+                                Icons.logout,
+                                color: Colors.black,
+                              ),
+                            ),
+                            title: const Text(
+                              "Log Out",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
-                },
-                child: ListTile(
-                  leading: IconButton(
-                    onPressed: () {
-                      // setState(() {
-                      //   FirebaseAuth.instance.signOut();
-                      //   Navigator.pushAndRemoveUntil(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (_) => const SingInPage(),
-                      //     ),
-                      //     (route) => false,
-                      //   );
-                      // });
-                    },
-                    icon: const Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: const Text(
-                    "Log Out",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )),
+                } else if (snapshot.hasError) {
+                  print(snapshot.hasError);
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.white,

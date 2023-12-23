@@ -18,9 +18,9 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => FirebaseAuth.instance.currentUser != null
-                  ? const BottomNavigatorBarPage()
-                  : const WelcomePage(),
+              builder: (context) => FirebaseAuth.instance.currentUser == null
+                  ? const WelcomePage()
+                  : const BottomNavigatorBarPage(),
             ),
             (route) => false);
       },
