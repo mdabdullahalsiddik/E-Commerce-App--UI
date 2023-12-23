@@ -1,22 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore: unused_import
-import 'package:ecommerce_ui/Data/data_model.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
+import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
-import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ProductListPage extends StatefulWidget {
-  Map productList = {};
+  int? index;
+
   String title;
   ProductListPage({
-    super.key,
-    required this.productList,
+    Key? key,
+    this.index,
     required this.title,
-  });
+  }) : super(key: key);
 
   @override
   State<ProductListPage> createState() => _ProductListPageState();
@@ -24,20 +27,37 @@ class ProductListPage extends StatefulWidget {
 
 class _ProductListPageState extends State<ProductListPage> {
   List data = [];
-  List searchList = [];
+  List finalSearchList = [];
+  var vlu;
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
-    setState(() {
-      data = widget.productList.values.toList();
-      searchList = data;
+    FirebaseGetData().productGetData(widget.title).then((value) {
+      vlu = value;
+      print(value.length);
+      print(value.toString());
+      setState(() {
+        data = finalSearchList;
+        for (var element in value) {
+          finalSearchList.add(element);
+        }
+        print(data.length);
+        print(data);
+      });
     });
+    // setState(() {
+    //   searchList = finalSearchList;
+    //   for (var element in productModel) {
+    //     finalSearchList.add(element);
+    //   }
+    // });
+
     super.initState();
   }
 
   void searchData(String value) {
     setState(() {
-      data = searchList
+      data = finalSearchList
           .where(
             (element) => element["title"].toString().toLowerCase().contains(
                   value.toLowerCase(),
@@ -45,6 +65,7 @@ class _ProductListPageState extends State<ProductListPage> {
           )
           .toList();
     });
+    print("***********${finalSearchList.length}********");
   }
 
   @override
@@ -69,7 +90,6 @@ class _ProductListPageState extends State<ProductListPage> {
                       const BottomNavigatorBarPage(),
                 ),
               );
-              ;
             },
             icon: const Icon(
               Icons.arrow_back_outlined,
@@ -100,7 +120,7 @@ class _ProductListPageState extends State<ProductListPage> {
                           setState(() {
                             data.clear();
                             searchController.clear();
-                            data = widget.productList.values.toList();
+                            // data = widget.productList.values.toList();
                           });
                         },
                         icon: const Icon(
@@ -130,7 +150,8 @@ class _ProductListPageState extends State<ProductListPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProductDitlsPage(
-                                    product: data[index],
+                                    id: data[index]!.id.toString(),
+                                    categoryTitle: widget.title.toString(),
                                   ),
                                 ),
                               );
@@ -184,7 +205,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                     width:
                                         MediaQuery.of(context).size.width * .4,
                                     child: Image.network(
-                                      data[index]!["image"].toString(),
+                                      data[index]!.image.toString(),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -193,14 +214,14 @@ class _ProductListPageState extends State<ProductListPage> {
                                         .02,
                                   ),
                                   Text(
-                                    data[index]!["title"].toString(),
+                                    data[index]!.title.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                     ),
                                   ),
                                   Text(
-                                    "\$ ${data[index]!["price"].toString()}",
+                                    "\$ ${data[index]!.price.toString()}",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,

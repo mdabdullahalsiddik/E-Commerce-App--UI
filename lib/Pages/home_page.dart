@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ecommerce_ui/Data/data_model.dart';
+import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
@@ -21,12 +22,21 @@ class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
-    setState(() {
-      searchList = finalSearchList;
-      for (var element in productModel) {
-        finalSearchList.add(element);
-      }
+    FirebaseGetData().categoryGetData().then((value) {
+      print(value.length);
+      setState(() {
+        searchList = finalSearchList;
+        for (var element in value) {
+          finalSearchList.add(element);
+        }
+      });
     });
+    // setState(() {
+    //   searchList = finalSearchList;
+    //   for (var element in productModel) {
+    //     finalSearchList.add(element);
+    //   }
+    // });
 
     super.initState();
   }
@@ -35,13 +45,13 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       searchList = finalSearchList
           .where(
-            (element) =>
-                element["category_title"].toString().toLowerCase().contains(
-                      value.toLowerCase(),
-                    ),
+            (element) => element["title"].toString().toLowerCase().contains(
+                  value.toLowerCase(),
+                ),
           )
           .toList();
     });
+    print("***********${finalSearchList.length}********");
   }
 
   @override
@@ -171,9 +181,10 @@ class _HomePageState extends State<HomePage> {
                             setState(() {
                               searchList.clear();
                               searchController.clear();
-                              for (var element in productModel) {
-                                searchList.add(element);
-                              }
+                              // for (var element in finalSearchList) {
+                              //   searchList.add(element);
+                              // }
+                              searchList = finalSearchList;
                             });
                           },
                           icon: const Icon(
@@ -203,9 +214,8 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListPage(
-                                      productList: searchList[index]!['data'],
-                                      title:
-                                          searchList[index]!["category_title"],
+                                      //index: searchList[index],
+                                      title: searchList[index].title.toString(),
                                     ),
                                   ),
                                 );
@@ -222,7 +232,9 @@ class _HomePageState extends State<HomePage> {
                                     CircleAvatar(
                                       radius: 50,
                                       backgroundImage: NetworkImage(
-                                        searchList[index]!["image"].toString(),
+                                        searchList[index].image.toString(),
+                                        // snapshot.data![index].image
+                                        //     .toString(),
                                       ),
                                     ),
                                     SizedBox(
@@ -231,8 +243,10 @@ class _HomePageState extends State<HomePage> {
                                               .02,
                                     ),
                                     Text(
-                                      searchList[index]!["category_title"]
-                                          .toString(),
+                                      //   searchList[index]!["category_title"]
+                                      // snapshot.data![index].title
+                                      //     .toString(),
+                                      searchList[index].title.toString(),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,

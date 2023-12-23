@@ -48,7 +48,6 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
           setState(
             () {
               selectIndex = index;
-             
             },
           );
         },

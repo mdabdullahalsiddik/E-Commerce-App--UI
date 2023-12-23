@@ -63,14 +63,14 @@ class _FavoritePageState extends State<FavoritePage> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDitlsPage(
-                            product: favoriteList[index],
-                          ),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => ProductDitlsPage(
+                            
+                      //     ),
+                      //   ),
+                      // );
                     },
                     child: Card(
                       shape: const RoundedRectangleBorder(

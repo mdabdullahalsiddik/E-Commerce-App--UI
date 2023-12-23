@@ -47,8 +47,12 @@ class _ItemPageState extends State<ItemPage> {
                         padding: const EdgeInsets.symmetric(
                           vertical: 10,
                         ),
-                        child: Image.network(
-                          cartItemList[index].image.toString(),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * .05,
+                          width: MediaQuery.of(context).size.width * .05,
+                          child: Image.network(
+                            cartItemList[index].image.toString(),
+                          ),
                         ),
                       ),
                       Column(
@@ -59,7 +63,6 @@ class _ItemPageState extends State<ItemPage> {
                             cartItemList[index].title.toString(),
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -82,7 +85,6 @@ class _ItemPageState extends State<ItemPage> {
                                 Text(
                                   cartItemList[index].quantity.toString(),
                                   style: const TextStyle(
-                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
