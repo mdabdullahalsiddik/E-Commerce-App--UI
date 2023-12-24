@@ -150,7 +150,10 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data!.color!.length,
+                              itemCount:
+                                  snapshot.data!.color!.first.toString() == ""
+                                      ? 0
+                                      : snapshot.data!.color!.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   width:
