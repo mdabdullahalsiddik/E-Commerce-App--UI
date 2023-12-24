@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
+import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:ecommerce_ui/Model/user_modul.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
@@ -9,6 +10,8 @@ import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,10 +30,10 @@ class _HomePageState extends State<HomePage> {
     FirebaseGetData().categoryGetData().then((value) {
       print(value.length);
       setState(() {
-        searchList = finalSearchList;
         for (var element in value) {
           finalSearchList.add(element);
         }
+        searchList = finalSearchList;
       });
     });
     // setState(() {
@@ -53,7 +56,6 @@ class _HomePageState extends State<HomePage> {
           )
           .toList();
     });
-    print("***********${finalSearchList.length}********");
   }
 
   @override
@@ -61,8 +63,8 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
         child: Scaffold(
           backgroundColor: Colors.white,
-          drawer: StreamBuilder(
-              stream: FirebaseDatabase.instance
+          drawer: FutureBuilder(
+              future: FirebaseDatabase.instance
                   .ref("User")
                   .child(FirebaseAuth.instance.currentUser!.email
                       .toString()
@@ -74,8 +76,7 @@ class _HomePageState extends State<HomePage> {
                         jsonEncode(value.value as Map),
                       ),
                     ),
-                  )
-                  .asStream(),
+                  ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Drawer(
@@ -180,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 } else if (snapshot.hasError) {
-                  print(snapshot.hasError);
+                  return Text(snapshot.hashCode.toString());
                 }
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -199,37 +200,45 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Column(
               children: [
-                CostomTextField(
+                CupertinoSearchTextField(
                   controller: searchController,
-                  onChanged: (p0) {
+                  onChanged: (value) {
                     setState(() {
-                      searchData(p0);
+                      searchData(value);
                     });
                   },
-                  hintText: "Search",
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  suffixIcon: searchController.text.isEmpty
-                      ? null
-                      : IconButton(
-                          onPressed: () {
-                            setState(() {
-                              searchList.clear();
-                              searchController.clear();
-                              // for (var element in finalSearchList) {
-                              //   searchList.add(element);
-                              // }
-                              searchList = finalSearchList;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.close,
-                            color: Colors.black,
-                          ),
-                        ),
                 ),
+                // CostomTextField(
+                //   controller: searchController,
+                //   onChanged: (p0) {
+                //     setState(() {
+                //       searchData(p0);
+                //     });
+                //   },
+                //   hintText: "Search",
+                //   prefixIcon: const Icon(
+                //     Icons.search,
+                //     color: Colors.black,
+                //   ),
+                //   suffixIcon: searchController.text.isEmpty
+                //       ? null
+                //       : IconButton(
+                //           onPressed: () {
+                //             setState(() {
+                //               searchList.clear();
+                //               searchController.clear();
+                //               // for (var element in finalSearchList) {
+                //               //   searchList.add(element);
+                //               // }
+                //               searchList = finalSearchList;
+                //             });
+                //           },
+                //           icon: const Icon(
+                //             Icons.close,
+                //             color: Colors.black,
+                //           ),
+                //         ),
+                // ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .02,
                 ),

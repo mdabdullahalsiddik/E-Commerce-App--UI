@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore: unused_import
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
@@ -103,32 +104,40 @@ class _ProductListPageState extends State<ProductListPage> {
           ),
           child: Column(
             children: [
-              CostomTextField(
+              CupertinoSearchTextField(
                 controller: searchController,
-                onChanged: (p0) {
-                  searchData(p0);
+                onChanged: (value) {
+                  setState(() {
+                    searchData(value);
+                  });
                 },
-                hintText: "Search",
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                suffixIcon: searchController.text.isEmpty
-                    ? null
-                    : IconButton(
-                        onPressed: () {
-                          setState(() {
-                            data.clear();
-                            searchController.clear();
-                            // data = widget.productList.values.toList();
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
-                      ),
               ),
+              // CostomTextField(
+              //   controller: searchController,
+              //   onChanged: (p0) {
+              //     searchData(p0);
+              //   },
+              //   hintText: "Search",
+              //   prefixIcon: const Icon(
+              //     Icons.search,
+              //     color: Colors.black,
+              //   ),
+              //   suffixIcon: searchController.text.isEmpty
+              //       ? null
+              //       : IconButton(
+              //           onPressed: () {
+              //             setState(() {
+              //               data.clear();
+              //               searchController.clear();
+              //               // data = widget.productList.values.toList();
+              //             });
+              //           },
+              //           icon: const Icon(
+              //             Icons.close,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),
