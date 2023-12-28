@@ -2,16 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
-import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:ecommerce_ui/Model/user_modul.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Pages/product_list.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
-import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     FirebaseGetData().categoryGetData().then((value) {
-      print(value.length);
       setState(() {
         for (var element in value) {
           finalSearchList.add(element);
@@ -36,12 +32,7 @@ class _HomePageState extends State<HomePage> {
         searchList = finalSearchList;
       });
     });
-    // setState(() {
-    //   searchList = finalSearchList;
-    //   for (var element in productModel) {
-    //     finalSearchList.add(element);
-    //   }
-    // });
+    
 
     super.initState();
   }
@@ -60,6 +51,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -208,37 +200,7 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                 ),
-                // CostomTextField(
-                //   controller: searchController,
-                //   onChanged: (p0) {
-                //     setState(() {
-                //       searchData(p0);
-                //     });
-                //   },
-                //   hintText: "Search",
-                //   prefixIcon: const Icon(
-                //     Icons.search,
-                //     color: Colors.black,
-                //   ),
-                //   suffixIcon: searchController.text.isEmpty
-                //       ? null
-                //       : IconButton(
-                //           onPressed: () {
-                //             setState(() {
-                //               searchList.clear();
-                //               searchController.clear();
-                //               // for (var element in finalSearchList) {
-                //               //   searchList.add(element);
-                //               // }
-                //               searchList = finalSearchList;
-                //             });
-                //           },
-                //           icon: const Icon(
-                //             Icons.close,
-                //             color: Colors.black,
-                //           ),
-                //         ),
-                // ),
+               
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .02,
                 ),
@@ -260,8 +222,9 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListPage(
-                                      //index: searchList[index],
+                                     
                                       title: searchList[index].title.toString(),
+                                      id: searchList[index].id.toString(),
                                     ),
                                   ),
                                 );
@@ -279,8 +242,7 @@ class _HomePageState extends State<HomePage> {
                                       radius: 50,
                                       backgroundImage: NetworkImage(
                                         searchList[index].image.toString(),
-                                        // snapshot.data![index].image
-                                        //     .toString(),
+                                      
                                       ),
                                     ),
                                     SizedBox(
@@ -289,9 +251,7 @@ class _HomePageState extends State<HomePage> {
                                               .02,
                                     ),
                                     Text(
-                                      //   searchList[index]!["category_title"]
-                                      // snapshot.data![index].title
-                                      //     .toString(),
+                                     
                                       searchList[index].title.toString(),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,

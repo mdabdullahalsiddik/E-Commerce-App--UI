@@ -2,24 +2,24 @@
 // ignore: unused_import
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
-import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 
 // ignore: must_be_immutable
 class ProductListPage extends StatefulWidget {
   int? index;
 
   String title;
+  String id;
   ProductListPage({
     Key? key,
     this.index,
     required this.title,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -29,30 +29,20 @@ class ProductListPage extends StatefulWidget {
 class _ProductListPageState extends State<ProductListPage> {
   List data = [];
   List finalSearchList = [];
+  // ignore: prefer_typing_uninitialized_variables
   var vlu;
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     FirebaseGetData().productGetData(widget.title).then((value) {
       vlu = value;
-      print(value.length);
-      print(value.toString());
       setState(() {
         data = finalSearchList;
         for (var element in value) {
           finalSearchList.add(element);
         }
-        print(data.length);
-        print(data);
       });
     });
-    // setState(() {
-    //   searchList = finalSearchList;
-    //   for (var element in productModel) {
-    //     finalSearchList.add(element);
-    //   }
-    // });
-
     super.initState();
   }
 
@@ -66,11 +56,11 @@ class _ProductListPageState extends State<ProductListPage> {
           )
           .toList();
     });
-    print("***********${finalSearchList.length}********");
   }
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -88,7 +78,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      const BottomNavigatorBarPage(),
+                       BottomNavigatorBarPage(),
                 ),
               );
             },
@@ -112,32 +102,7 @@ class _ProductListPageState extends State<ProductListPage> {
                   });
                 },
               ),
-              // CostomTextField(
-              //   controller: searchController,
-              //   onChanged: (p0) {
-              //     searchData(p0);
-              //   },
-              //   hintText: "Search",
-              //   prefixIcon: const Icon(
-              //     Icons.search,
-              //     color: Colors.black,
-              //   ),
-              //   suffixIcon: searchController.text.isEmpty
-              //       ? null
-              //       : IconButton(
-              //           onPressed: () {
-              //             setState(() {
-              //               data.clear();
-              //               searchController.clear();
-              //               // data = widget.productList.values.toList();
-              //             });
-              //           },
-              //           icon: const Icon(
-              //             Icons.close,
-              //             color: Colors.black,
-              //           ),
-              //         ),
-              // ),
+             
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),
@@ -251,7 +216,7 @@ class _ProductListPageState extends State<ProductListPage> {
         return await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => const BottomNavigatorBarPage(),
+            builder: (BuildContext context) =>  BottomNavigatorBarPage(),
           ),
         );
       },

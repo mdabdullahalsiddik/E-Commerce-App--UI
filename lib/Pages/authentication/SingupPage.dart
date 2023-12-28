@@ -1,4 +1,5 @@
-// ignore: file_names
+// ignore_for_file: file_names
+
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
@@ -190,7 +191,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const BottomNavigatorBarPage(),
+                                      builder: (context) =>
+                                          BottomNavigatorBarPage(),
                                     ),
                                     (route) => false,
                                   );

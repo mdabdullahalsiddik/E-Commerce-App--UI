@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ecommerce_ui/Model/all_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:ecommerce_ui/Model/user_modul.dart';
 
@@ -10,7 +11,6 @@ class FirebaseData {
     String phone,
     String mail,
   ) async {
-    var dataKye = DateTime.now().microsecond;
     var user = UserInfoModel(
       name: name,
       phone: phone,
@@ -23,7 +23,7 @@ class FirebaseData {
           "User",
         )
         .child(
-          "${mail.replaceAll(".", "")}",
+          mail.replaceAll(".", ""),
         )
         .set(
           user.toJson(),
@@ -36,7 +36,6 @@ class FirebaseGetData {
     List<CategoryModel> data = [];
     await FirebaseDatabase.instance.ref("Category").orderByKey().get().then(
       (value) {
-        print(value);
         for (var i in value.children) {
           data.add(
             CategoryModel.fromJson(
@@ -45,7 +44,6 @@ class FirebaseGetData {
               ),
             ),
           );
-          print(data);
         }
       },
     );
@@ -75,29 +73,31 @@ class FirebaseGetData {
     return data;
   }
 
-  Future productItemGetData(String categoryTitle, String id) async {
-    var data ;
+  Future<List<OderProductModel>> productCartListGetData() async {
+    List<OderProductModel> data = [];
     await FirebaseDatabase.instance
-        .ref("Product")
-        .child(categoryTitle)
-        .child(id.toLowerCase())
+        .ref("Oder")
+        // .child("M68U0HiHIaQhZCZT99lNAKSlReu1")
+        .child(
+          FirebaseAuth.instance.currentUser!.uid.toString(),
+        )
         .orderByKey()
         .get()
         .then(
       (value) {
-        print(value);
-      data = ProductModel.fromJson(jsonDecode(jsonEncode(value)));
-        // for (var i in value.children) {
-        //   data.add(
-        //     ProductModel.fromJson(
-        //       jsonDecode(
-        //         jsonEncode(i.value),
-        //       ),
-        //     ),
-        //   );
-        // }
+        for (var i in value.children) {
+          data.add(
+            OderProductModel.fromJson(
+              jsonDecode(
+                jsonEncode(i.value),
+              ),
+            ),
+          );
+          print(data);
+        }
       },
     );
+    return data;
   }
 }
 

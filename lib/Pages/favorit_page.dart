@@ -1,6 +1,5 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
-import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          const BottomNavigatorBarPage(),
+                           BottomNavigatorBarPage(),
                     ),
                   );
                 },

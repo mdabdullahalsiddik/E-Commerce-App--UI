@@ -1,4 +1,5 @@
 // ignore: file_names
+// ignore: file_names
 import 'package:ecommerce_ui/Pages/authentication/SingupPage.dart';
 import 'package:ecommerce_ui/Pages/authentication/otp_page.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
@@ -95,7 +96,7 @@ class _SingInPageState extends State<SingInPage> {
                       ],
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   Row(
@@ -160,7 +161,7 @@ class _SingInPageState extends State<SingInPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const BottomNavigatorBarPage(),
+                                        BottomNavigatorBarPage(),
                                   ),
                                   (route) => false,
                                 ),
