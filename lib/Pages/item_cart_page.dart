@@ -1,5 +1,6 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
+import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
@@ -72,7 +73,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                             status: 'loading...');
                                         setState(() {
                                           FirebaseDatabase.instance
-                                              .ref("Oder")
+                                              .ref("OderCart")
                                               .child(FirebaseAuth
                                                   .instance.currentUser!.uid
                                                   .toString())
@@ -138,7 +139,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                                       .toString()) >
                                                   1) {
                                                 FirebaseDatabase.instance
-                                                    .ref("Oder")
+                                                    .ref("OderCart")
                                                     .child(FirebaseAuth.instance
                                                         .currentUser!.uid
                                                         .toString())
@@ -155,7 +156,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                                         .toString()) -
                                                     1;
                                                 FirebaseDatabase.instance
-                                                    .ref("Oder")
+                                                    .ref("OderCart")
                                                     .child(FirebaseAuth.instance
                                                         .currentUser!.uid
                                                         .toString())
@@ -187,7 +188,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                                       .toString()) <
                                                   10) {
                                                 FirebaseDatabase.instance
-                                                    .ref("Oder")
+                                                    .ref("OderCart")
                                                     .child(FirebaseAuth.instance
                                                         .currentUser!.uid
                                                         .toString())
@@ -204,7 +205,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                                         .toString()) +
                                                     1;
                                                 FirebaseDatabase.instance
-                                                    .ref("Oder")
+                                                    .ref("OderCart")
                                                     .child(FirebaseAuth.instance
                                                         .currentUser!.uid
                                                         .toString())
@@ -296,17 +297,53 @@ class _CartItemPageState extends State<CartItemPage> {
                       vertical: 10,
                     ),
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Order Successful",
-                              ),
-                            ),
-                          );
-                          cartItemList.clear();
+                      onPressed: () async {
+                        await EasyLoading.show(status: 'loading...');
+                        setState(() async {
+                          var data = snapshot.data!;
+                          int i = 0;
+                          for (int index = 0; index <= data.length; index++) {
+                            i = index;
+
+                            await FirebaseDatabase.instance
+                                .ref("Oder")
+                                .child(FirebaseAuth.instance.currentUser!.email
+                                    .toString()
+                                    .replaceAll(".", ""))
+                                .child(
+                                    "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
+                                .set(
+                                  OderProductModel(
+                                    size: snapshot.data![i].size!,
+                                    color: snapshot.data![i].color.toString(),
+                                    title: snapshot.data![i].title.toString(),
+                                    image: snapshot.data![i].image.toString(),
+                                    price: snapshot.data![i].price,
+                                    id: snapshot.data![i].id.toString(),
+                                    quantity: snapshot.data![i].quantity,
+                                    categoryID:
+                                        snapshot.data![i].categoryID.toString(),
+                                    mail: FirebaseAuth
+                                        .instance.currentUser!.email
+                                        .toString(),
+                                  ).toJson(),
+                                );
+                            setState(() {
+                              FirebaseDatabase.instance
+                                  .ref("OderCart")
+                                  .child(FirebaseAuth.instance.currentUser!.uid
+                                      .toString())
+                                  .child(
+                                      "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
+                                  .remove();
+                            });
+
+                            EasyLoading.showSuccess('Great Success!');
+                            EasyLoading.dismiss();
+                          }
                         });
+
+                        // ignore: use_build_context_synchronously
                       },
                       child: const Text(
                         "Buy Now",

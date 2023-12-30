@@ -310,13 +310,13 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                     await EasyLoading.show(status: 'loading...');
 
                     await FirebaseDatabase.instance
-                        .ref("Oder")
+                        .ref("OderCart")
                         .child(
                             FirebaseAuth.instance.currentUser!.uid.toString())
                         .child(
                             "${snapshot.data!.categoryID.toString()}_${snapshot.data!.id.toString()}")
                         .set(
-                          OderProductModel(
+                          OderCartProductModel(
                             size: snapshot.data!.size!.isEmpty
                                 ? null
                                 : snapshot.data!.size![selectSize].toString(),

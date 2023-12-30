@@ -14,7 +14,8 @@
         "Oppo",
         "Singin",
         "Singup",
-        "textfromfield"
+        "textfromfield",
+        "totalprice"
     ],
     "debug.hideLauncherWhileDebugging": false,
     "zenMode.hideStatusBar": false,

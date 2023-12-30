@@ -118,7 +118,7 @@ class CategoryModel {
   }
 }
 
-class OderProductModel {
+class OderCartProductModel {
   String? title;
   String? image;
   int? quantity;
@@ -131,7 +131,7 @@ class OderProductModel {
   String? size;
   String? color;
 
-  OderProductModel({
+  OderCartProductModel({
     required this.title,
     required this.image,
     this.quantity,
@@ -144,7 +144,7 @@ class OderProductModel {
     this.categoryID,
   });
 
-  OderProductModel.fromJson(dynamic json) {
+  OderCartProductModel.fromJson(dynamic json) {
     title = json['title'];
     about = json['about'];
 
@@ -166,6 +166,62 @@ class OderProductModel {
     map['quantity'] = quantity;
     map['price'] = price;
     map['totalprice'] = totalprice;
+    map['id'] = id;
+    map['size'] = size;
+    map['color'] = color;
+    map['categoryID'] = categoryID;
+
+    return map;
+  }
+}
+
+class OderProductModel {
+  String? title;
+  String? image;
+  int? quantity;
+  // ignore: prefer_typing_uninitialized_variables
+  var price;
+
+  String? id;
+  String? mail;
+  String? categoryID;
+  String? size;
+  String? color;
+
+  OderProductModel({
+    required this.title,
+    required this.image,
+    this.quantity,
+    this.mail,
+    required this.price,
+    required this.id,
+    this.size,
+    this.color,
+    this.categoryID,
+  });
+
+  OderProductModel.fromJson(dynamic json) {
+    title = json['title'];
+    mail = json['mail'];
+
+    image = json['image'];
+    quantity = json['quantity'];
+    price = json['price'];
+
+    id = json['id'];
+    size = json['size'];
+    color = json['color'];
+    categoryID = json['categoryID'];
+  }
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = title;
+    map['mail'] = mail;
+    map['image'] = image;
+
+    map['quantity'] = quantity;
+    map['price'] = price;
+
     map['id'] = id;
     map['size'] = size;
     map['color'] = color;

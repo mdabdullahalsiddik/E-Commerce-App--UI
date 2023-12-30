@@ -73,10 +73,10 @@ class FirebaseGetData {
     return data;
   }
 
-  Future<List<OderProductModel>> productCartListGetData() async {
-    List<OderProductModel> data = [];
+  Future<List<OderCartProductModel>> productCartListGetData() async {
+    List<OderCartProductModel> data = [];
     await FirebaseDatabase.instance
-        .ref("Oder")
+        .ref("OderCart")
         // .child("M68U0HiHIaQhZCZT99lNAKSlReu1")
         .child(
           FirebaseAuth.instance.currentUser!.uid.toString(),
@@ -87,7 +87,7 @@ class FirebaseGetData {
       (value) {
         for (var i in value.children) {
           data.add(
-            OderProductModel.fromJson(
+            OderCartProductModel.fromJson(
               jsonDecode(
                 jsonEncode(i.value),
               ),
