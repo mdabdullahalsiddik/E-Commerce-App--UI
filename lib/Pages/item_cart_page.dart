@@ -18,12 +18,22 @@ class CartItemPage extends StatefulWidget {
 }
 
 class _CartItemPageState extends State<CartItemPage> {
+  List t_price = [];
+  int i = 0;
+  double t_p = 0;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseGetData().productCartListGetData().asStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          if (snapshot.data!.length == snapshot.data!.length) {
+            for (int i = 0; i < snapshot.data!.length; i++) {
+              t_p += snapshot.data![i].price;
+             
+            }
+          }
+
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: costomAppbar(
@@ -43,6 +53,7 @@ class _CartItemPageState extends State<CartItemPage> {
                 primary: false,
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
+                  print(t_price);
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 5,
@@ -321,8 +332,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                     price: snapshot.data![i].price,
                                     id: snapshot.data![i].id.toString(),
                                     quantity: snapshot.data![i].quantity,
-                                    categoryID:
-                                        snapshot.data![i].categoryID.toString(),
+                                    categoryID: t_p.toString(),
                                     mail: FirebaseAuth
                                         .instance.currentUser!.email
                                         .toString(),
@@ -345,10 +355,10 @@ class _CartItemPageState extends State<CartItemPage> {
 
                         // ignore: use_build_context_synchronously
                       },
-                      child: const Text(
-                        "Buy Now",
+                      child: Text(
+                        "Buy Now $t_p",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
