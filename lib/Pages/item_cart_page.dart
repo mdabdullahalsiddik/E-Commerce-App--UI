@@ -132,12 +132,12 @@ class _CartItemPageState extends State<CartItemPage> {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            setState(() async {
+                                            setState(() {
                                               if (int.parse(snapshot
                                                       .data![index].quantity
                                                       .toString()) >
                                                   1) {
-                                                await FirebaseDatabase.instance
+                                                FirebaseDatabase.instance
                                                     .ref("Oder")
                                                     .child(FirebaseAuth.instance
                                                         .currentUser!.uid
@@ -149,10 +149,22 @@ class _CartItemPageState extends State<CartItemPage> {
                                                           .data![index].quantity
                                                           .toString()) -
                                                       1,
+                                                });
+                                                var q = int.parse(snapshot
+                                                        .data![index].quantity
+                                                        .toString()) -
+                                                    1;
+                                                FirebaseDatabase.instance
+                                                    .ref("Oder")
+                                                    .child(FirebaseAuth.instance
+                                                        .currentUser!.uid
+                                                        .toString())
+                                                    .child(
+                                                        "${snapshot.data![index].categoryID.toString()}_${snapshot.data![index].id.toString()}")
+                                                    .update({
                                                   "price": snapshot.data![index]
                                                           .totalprice *
-                                                      snapshot.data![index]
-                                                          .quantity,
+                                                      q,
                                                 });
                                               }
                                             });
@@ -186,10 +198,22 @@ class _CartItemPageState extends State<CartItemPage> {
                                                           .data![index].quantity
                                                           .toString()) +
                                                       1,
+                                                });
+                                                var q = int.parse(snapshot
+                                                        .data![index].quantity
+                                                        .toString()) +
+                                                    1;
+                                                FirebaseDatabase.instance
+                                                    .ref("Oder")
+                                                    .child(FirebaseAuth.instance
+                                                        .currentUser!.uid
+                                                        .toString())
+                                                    .child(
+                                                        "${snapshot.data![index].categoryID.toString()}_${snapshot.data![index].id.toString()}")
+                                                    .update({
                                                   "price": snapshot.data![index]
                                                           .totalprice *
-                                                      snapshot.data![index]
-                                                          .quantity,
+                                                      q,
                                                 });
                                               }
                                             });
