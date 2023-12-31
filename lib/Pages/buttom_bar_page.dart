@@ -1,28 +1,24 @@
-import 'dart:convert';
-
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
-import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
 import 'package:ecommerce_ui/Pages/chat_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/item_cart_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigatorBarPage extends StatefulWidget {
- 
-  BottomNavigatorBarPage({super.key, });
+  const BottomNavigatorBarPage({
+    super.key,
+  });
 
   @override
   State<BottomNavigatorBarPage> createState() => _BottomNavigatorBarPageState();
 }
 
 class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
-   int selectIndex =  0;
+  int selectIndex = 0;
 
   List<Widget> pages = [
     const HomePage(),
@@ -36,13 +32,13 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: pages[selectIndex ?? 0],
+      body: pages[selectIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 0,
         unselectedFontSize: 0,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        currentIndex: selectIndex!,
+        currentIndex: selectIndex,
         onTap: (index) {
           setState(
             () {
@@ -76,13 +72,13 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: FutureBuilder(
-              future: FirebaseGetData().productCartListGetData(),
+            icon: StreamBuilder(
+              stream: FirebaseGetData().productCartListGetData().asStream(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Badge(
                     label: Text(
-                      snapshot.data!.length.toString() ?? "0",
+                      snapshot.data!.length.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

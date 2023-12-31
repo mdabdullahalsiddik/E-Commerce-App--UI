@@ -20,20 +20,31 @@ class CartItemPage extends StatefulWidget {
 class _CartItemPageState extends State<CartItemPage> {
   List t_price = [];
   int i = 0;
-  double t_p = 0;
+  double tP = 0;
+
+  void tPrice() async {
+    await FirebaseGetData().productCartListGetData().then((value) {
+      for (int i = 0; i < value.length; i++) {
+        tP += value[i].price;
+      }
+      // for (int i = 0; i < t_price.length; i++) {
+      //   tP += t_price[i]["price"];
+      // }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tPrice();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseGetData().productCartListGetData().asStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.length == snapshot.data!.length) {
-            for (int i = 0; i < snapshot.data!.length; i++) {
-              t_p += snapshot.data![i].price;
-             
-            }
-          }
-
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: costomAppbar(
@@ -53,7 +64,6 @@ class _CartItemPageState extends State<CartItemPage> {
                 primary: false,
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  print(t_price);
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 5,
@@ -93,6 +103,8 @@ class _CartItemPageState extends State<CartItemPage> {
                                               .remove();
 
                                           Navigator.pop(context);
+                                          tP = 0;
+                                          tPrice();
                                         });
                                         EasyLoading.showSuccess(
                                             'Great Success!');
@@ -179,6 +191,8 @@ class _CartItemPageState extends State<CartItemPage> {
                                                       q,
                                                 });
                                               }
+                                              tP = 0;
+                                              tPrice();
                                             });
                                           },
                                           icon: const Icon(Icons.remove),
@@ -215,6 +229,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                                         .data![index].quantity
                                                         .toString()) +
                                                     1;
+
                                                 FirebaseDatabase.instance
                                                     .ref("OderCart")
                                                     .child(FirebaseAuth.instance
@@ -228,6 +243,8 @@ class _CartItemPageState extends State<CartItemPage> {
                                                       q,
                                                 });
                                               }
+                                              tP = 0;
+                                              tPrice();
                                             });
                                           },
                                           icon: const Icon(Icons.add),
@@ -289,7 +306,7 @@ class _CartItemPageState extends State<CartItemPage> {
                           context,
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                BottomNavigatorBarPage(),
+                                const BottomNavigatorBarPage(),
                           ),
                         );
                       },
@@ -302,66 +319,107 @@ class _CartItemPageState extends State<CartItemPage> {
                       ),
                     ),
                   )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await EasyLoading.show(status: 'loading...');
-                        setState(() async {
-                          var data = snapshot.data!;
-                          int i = 0;
-                          for (int index = 0; index <= data.length; index++) {
-                            i = index;
+                : SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.13,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Total Price :",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "$tP",
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await EasyLoading.show(status: 'loading...');
+                              setState(() async {
+                                var data = snapshot.data!;
+                                int i = 0;
+                                for (int index = 0;
+                                    index <= data.length;
+                                    index++) {
+                                  i = index;
 
-                            await FirebaseDatabase.instance
-                                .ref("Oder")
-                                .child(FirebaseAuth.instance.currentUser!.email
-                                    .toString()
-                                    .replaceAll(".", ""))
-                                .child(
-                                    "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
-                                .set(
-                                  OderProductModel(
-                                    size: snapshot.data![i].size!,
-                                    color: snapshot.data![i].color.toString(),
-                                    title: snapshot.data![i].title.toString(),
-                                    image: snapshot.data![i].image.toString(),
-                                    price: snapshot.data![i].price,
-                                    id: snapshot.data![i].id.toString(),
-                                    quantity: snapshot.data![i].quantity,
-                                    categoryID: t_p.toString(),
-                                    mail: FirebaseAuth
-                                        .instance.currentUser!.email
-                                        .toString(),
-                                  ).toJson(),
-                                );
-                            setState(() {
-                              FirebaseDatabase.instance
-                                  .ref("OderCart")
-                                  .child(FirebaseAuth.instance.currentUser!.uid
-                                      .toString())
-                                  .child(
-                                      "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
-                                  .remove();
-                            });
+                                  await FirebaseDatabase.instance
+                                      .ref("Oder")
+                                      .child(FirebaseAuth
+                                          .instance.currentUser!.email
+                                          .toString()
+                                          .replaceAll(".", ""))
+                                      .child(
+                                          "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
+                                      .set(
+                                        OderProductModel(
+                                          size: snapshot.data![i].size!,
+                                          color: snapshot.data![i].color
+                                              .toString(),
+                                          title: snapshot.data![i].title
+                                              .toString(),
+                                          image: snapshot.data![i].image
+                                              .toString(),
+                                          price: snapshot.data![i].price,
+                                          id: snapshot.data![i].id.toString(),
+                                          quantity: snapshot.data![i].quantity,
+                                          categoryID: tP.toString(),
+                                          mail: FirebaseAuth
+                                              .instance.currentUser!.email
+                                              .toString(),
+                                        ).toJson(),
+                                      );
+                                  setState(() {
+                                    FirebaseDatabase.instance
+                                        .ref("OderCart")
+                                        .child(FirebaseAuth
+                                            .instance.currentUser!.uid
+                                            .toString())
+                                        .child(
+                                            "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
+                                        .remove();
+                                  });
 
-                            EasyLoading.showSuccess('Great Success!');
-                            EasyLoading.dismiss();
-                          }
-                        });
+                                  EasyLoading.showSuccess('Great Success!');
+                                  EasyLoading.dismiss();
+                                }
+                              });
 
-                        // ignore: use_build_context_synchronously
-                      },
-                      child: Text(
-                        "Buy Now $t_p",
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                              // ignore: use_build_context_synchronously
+                            },
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: const Center(
+                                child: Text(
+                                  "Buy Now ",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
