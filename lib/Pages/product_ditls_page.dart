@@ -283,8 +283,11 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                     ],
                   );
                 } else if (snapshot.hasError) {}
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               },
             ),
@@ -337,7 +340,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            BottomNavigatorBarPage(),
+                            const BottomNavigatorBarPage(),
                       ),
                     );
                     EasyLoading.showSuccess('Great Success!');

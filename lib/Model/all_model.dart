@@ -181,6 +181,7 @@ class OderProductModel {
   int? quantity;
   // ignore: prefer_typing_uninitialized_variables
   var price;
+  var totalprice;
 
   String? id;
   String? mail;
@@ -194,6 +195,7 @@ class OderProductModel {
     this.quantity,
     this.mail,
     required this.price,
+    required this.totalprice,
     required this.id,
     this.size,
     this.color,
@@ -207,6 +209,7 @@ class OderProductModel {
     image = json['image'];
     quantity = json['quantity'];
     price = json['price'];
+    totalprice = json['totalprice'];
 
     id = json['id'];
     size = json['size'];
@@ -221,11 +224,76 @@ class OderProductModel {
 
     map['quantity'] = quantity;
     map['price'] = price;
+    map['totalprice'] = totalprice;
 
     map['id'] = id;
     map['size'] = size;
     map['color'] = color;
     map['categoryID'] = categoryID;
+
+    return map;
+  }
+}
+
+class FavoriteProductModel {
+  String? title;
+  String? image;
+  int? quantity;
+  // ignore: prefer_typing_uninitialized_variables
+  var price;
+  var totalprice;
+
+  String? id;
+  String? mail;
+  String? categoryID;
+  String? categoryTitle;
+  String? size;
+  String? color;
+
+  FavoriteProductModel({
+    required this.title,
+    required this.image,
+    this.quantity,
+    this.mail,
+    required this.price,
+    required this.totalprice,
+    required this.id,
+    this.size,
+    this.color,
+    this.categoryID,
+    this.categoryTitle,
+  });
+
+  FavoriteProductModel.fromJson(dynamic json) {
+    title = json['title'];
+    mail = json['mail'];
+
+    image = json['image'];
+    quantity = json['quantity'];
+    price = json['price'];
+    totalprice = json['totalprice'];
+
+    id = json['id'];
+    size = json['size'];
+    color = json['color'];
+    categoryID = json['categoryID'];
+    categoryTitle = json['categoryTitle'];
+  }
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['title'] = title;
+    map['mail'] = mail;
+    map['image'] = image;
+
+    map['quantity'] = quantity;
+    map['price'] = price;
+    map['totalprice'] = totalprice;
+
+    map['id'] = id;
+    map['size'] = size;
+    map['color'] = color;
+    map['categoryID'] = categoryID;
+    map['categoryTitle'] = categoryTitle;
 
     return map;
   }

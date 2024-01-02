@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CartItemPage extends StatefulWidget {
@@ -381,10 +382,12 @@ class _CartItemPageState extends State<CartItemPage> {
                                           price: snapshot.data![i].price,
                                           id: snapshot.data![i].id.toString(),
                                           quantity: snapshot.data![i].quantity,
-                                          categoryID: tP.toString(),
+                                          categoryID:
+                                              snapshot.data![i].toString(),
                                           mail: FirebaseAuth
                                               .instance.currentUser!.email
                                               .toString(),
+                                          totalprice: tP,
                                         ).toJson(),
                                       );
                                   setState(() {
@@ -397,7 +400,7 @@ class _CartItemPageState extends State<CartItemPage> {
                                             "${snapshot.data![i].categoryID.toString()}_${snapshot.data![i].id.toString()}")
                                         .remove();
                                   });
-
+                                  
                                   EasyLoading.showSuccess('Great Success!');
                                   EasyLoading.dismiss();
                                 }

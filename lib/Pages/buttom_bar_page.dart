@@ -59,15 +59,32 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
               ),
               label: ""),
           BottomNavigationBarItem(
-            icon: Badge(
-              label: Text(
-                favoriteList.length.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              child: const Icon(Icons.favorite_outline),
+            icon: StreamBuilder(
+              stream: FirebaseGetData().favoriteGetData().asStream(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Badge(
+                    label: Text(
+                      snapshot.data!.length.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    child: const Icon(Icons.favorite_border),
+                  );
+                }
+                return const Badge(
+                  label: Text(
+                    "100",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  child: Icon(Icons.shopping_cart_outlined),
+                );
+              },
             ),
             label: "",
           ),

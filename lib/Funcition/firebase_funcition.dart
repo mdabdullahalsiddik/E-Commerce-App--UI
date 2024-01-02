@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -77,7 +78,6 @@ class FirebaseGetData {
     List<OderCartProductModel> data = [];
     await FirebaseDatabase.instance
         .ref("OderCart")
-        // .child("M68U0HiHIaQhZCZT99lNAKSlReu1")
         .child(
           FirebaseAuth.instance.currentUser!.uid.toString(),
         )
@@ -93,10 +93,33 @@ class FirebaseGetData {
               ),
             ),
           );
-          print(data);
         }
       },
     );
+    return data;
+  }
+
+  Future<List<FavoriteProductModel>> favoriteGetData() async {
+    List<FavoriteProductModel> data = [];
+    await FirebaseDatabase.instance
+        .ref("Favorite")
+        .child(FirebaseAuth.instance.currentUser!.uid.toString())
+        //.orderByKey()
+        .get()
+        .then(
+      (value) {
+        for (var i in value.children) {
+          data.add(
+            FavoriteProductModel.fromJson(
+              jsonDecode(
+                jsonEncode(i.value),
+              ),
+            ),
+          );
+        }
+      },
+    );
+
     return data;
   }
 }

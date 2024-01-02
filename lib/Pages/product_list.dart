@@ -1,5 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore: unused_import
+import 'package:ecommerce_ui/Model/all_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
@@ -78,7 +79,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
-                       BottomNavigatorBarPage(),
+                      const BottomNavigatorBarPage(),
                 ),
               );
             },
@@ -102,7 +103,6 @@ class _ProductListPageState extends State<ProductListPage> {
                   });
                 },
               ),
-             
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),
@@ -144,33 +144,70 @@ class _ProductListPageState extends State<ProductListPage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          if (favoriteList
-                                              .contains(data[index])) {
-                                            setState(() {
-                                              favoriteList.remove(
-                                                data[index],
-                                              );
-                                            });
-                                          } else {
-                                            setState(() {
-                                              favoriteList.add(
-                                                data[index],
-                                              );
-                                            });
-                                          }
-                                        },
-                                        icon: Icon(
+                                      IconButton(onPressed: () async {
+                                        await FirebaseGetData()
+                                            .favoriteGetData();
+                                        if (favoriteList
+                                            .contains(data[index])) {
+                                          setState(() async {
+                                            favoriteList.remove(
+                                              data[index],
+                                            );
+                                            await FirebaseDatabase.instance
+                                                .ref("Favorite")
+                                                .child(FirebaseAuth
+                                                    .instance.currentUser!.uid
+                                                    .toString())
+                                                .child(
+                                                    "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
+                                                .remove();
+                                          });
+                                        } else {
+                                          setState(() async {
+                                            favoriteList.add(
+                                              data[index],
+                                            );
+                                            await FirebaseDatabase.instance
+                                                .ref("Favorite")
+                                                .child(FirebaseAuth
+                                                    .instance.currentUser!.uid
+                                                    .toString())
+                                                .child(
+                                                    "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
+                                                .set(
+                                                  FavoriteProductModel(
+                                                          title: data[index]!
+                                                              .title
+                                                              .toString(),
+                                                          image: data[index]!
+                                                              .image
+                                                              .toString(),
+                                                          price: data[index]!
+                                                              .price,
+                                                          totalprice:
+                                                              data[index]!
+                                                                  .price,
+                                                          id: data[index]!
+                                                              .id
+                                                              .toString(),
+                                                          categoryTitle: widget
+                                                              .title
+                                                              .toString())
+                                                      .toJson(),
+                                                );
+                                          });
+                                        }
+                                      }, icon: StatefulBuilder(
+                                          builder: (context, snapshot) {
+                                        return Icon(
                                           Icons.favorite,
                                           size: 15,
-                                          color: favoriteList
-                                                      .contains(data[index]) ==
-                                                  true
-                                              ? Colors.red
-                                              : Colors.black,
-                                        ),
-                                      ),
+                                          color:
+                                              favoriteList.contains(data[index])
+                                                  ? Colors.red
+                                                  : Colors.black,
+                                        );
+                                      })),
                                     ],
                                   ),
                                   SizedBox(
@@ -216,7 +253,7 @@ class _ProductListPageState extends State<ProductListPage> {
         return await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) =>  BottomNavigatorBarPage(),
+            builder: (BuildContext context) => const BottomNavigatorBarPage(),
           ),
         );
       },

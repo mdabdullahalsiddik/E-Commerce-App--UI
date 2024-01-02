@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Model/user_modul.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
@@ -21,9 +22,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List searchList = [];
   List finalSearchList = [];
+  bool loding = false;
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
+    FirebaseGetData().favoriteGetData().then((value) {
+      setState(() {
+        for (var element in value) {
+          favoriteList.add(element);
+        }
+        print("***********************$favoriteList");
+      });
+    });
     FirebaseGetData().categoryGetData().then((value) {
       setState(() {
         for (var element in value) {
@@ -32,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         searchList = finalSearchList;
       });
     });
-    
 
     super.initState();
   }
@@ -46,6 +55,7 @@ class _HomePageState extends State<HomePage> {
                 ),
           )
           .toList();
+      loding = true;
     });
   }
 
@@ -186,88 +196,96 @@ class _HomePageState extends State<HomePage> {
               color: Colors.black,
             ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-            ),
-            child: Column(
-              children: [
-                CupertinoSearchTextField(
-                  controller: searchController,
-                  onChanged: (value) {
-                    setState(() {
-                      searchData(value);
-                    });
-                  },
-                ),
-               
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                searchList.isEmpty
-                    ? const Center(child: Text("Not Found"))
-                    : Expanded(
-                        child: GridView.builder(
-                          itemCount: searchList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 1,
-                            childAspectRatio: .9,
-                          ),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductListPage(
-                                     
-                                      title: searchList[index].title.toString(),
-                                      id: searchList[index].id.toString(),
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                color: AllColors.primaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage: NetworkImage(
-                                        searchList[index].image.toString(),
-                                      
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .02,
-                                    ),
-                                    Text(
-                                     
-                                      searchList[index].title.toString(),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+          body: loding
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ),
+                  child: Column(
+                    children: [
+                      CupertinoSearchTextField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          setState(() {
+                            searchData(value);
+                          });
+                        },
                       ),
-              ],
-            ),
-          ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .02,
+                      ),
+                      searchList.isEmpty
+                          ? const Center(child: Text("Not Found"))
+                          : Expanded(
+                              child: GridView.builder(
+                                itemCount: searchList.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 1,
+                                  childAspectRatio: .9,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProductListPage(
+                                            title: searchList[index]
+                                                .title
+                                                .toString(),
+                                            id: searchList[index].id.toString(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      color: AllColors.primaryColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 50,
+                                            backgroundImage: NetworkImage(
+                                              searchList[index]
+                                                  .image
+                                                  .toString(),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .02,
+                                          ),
+                                          Text(
+                                            searchList[index].title.toString(),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
         ),
         onWillPop: () async {
           return (await showDialog(
