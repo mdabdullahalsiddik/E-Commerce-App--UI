@@ -146,7 +146,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * .08,
+                              height: MediaQuery.of(context).size.height * .10,
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
@@ -157,7 +157,7 @@ class _ProductDitlsPageState extends State<ProductDitlsPage> {
                                 itemBuilder: (context, index) {
                                   return SizedBox(
                                     width: MediaQuery.of(context).size.height *
-                                        .08,
+                                        .12,
                                     child: InkWell(
                                       onTap: () {
                                         setState(
