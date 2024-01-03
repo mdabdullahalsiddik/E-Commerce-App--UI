@@ -290,39 +290,24 @@ class _HomePageState extends State<HomePage> {
             barrierDismissible: true,
             context: context,
             builder: (context) {
-              return AlertDialog(
-                title: const Text("Confirmation"),
-                content: const Text("Are you sura exit."),
+              return CupertinoAlertDialog(
+                title: const Text(
+                  "Delete Product?",
+                  style: TextStyle(color: Colors.red),
+                ),
+                content: const Text("Are you sure?"),
                 actions: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AllColors.primaryColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                          child: const Text(
-                            "No",
-                            style: TextStyle(color: Colors.black),
-                          )),
-                      ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                              AllColors.primaryColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            exit(0);
-                          },
-                          child: const Text("Yes",
-                              style: TextStyle(color: Colors.black))),
-                    ],
-                  )
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("No"),
+                  ),
+                  CupertinoDialogAction(
+                      onPressed: () {
+                        exit(0);
+                      },
+                      child: const Text("Yes")),
                 ],
               );
             },
