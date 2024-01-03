@@ -8,6 +8,7 @@ import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -108,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: MediaQuery.of(context).size.height * .01,
                       ),
                       CostomTextField(
+                        textInputAction: TextInputAction.next,
                         controller: passwordController,
                         hintText: "Password",
                         obscureText: !passwordValidator,
@@ -175,27 +177,31 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (passwordController.text ==
                                   confirmpasswordController.text) {
                                 try {
+                                  await EasyLoading.show(status: 'loading...');
                                   await FirebaseData().sendData(
                                     nameController.text,
                                     passwordController.text,
                                     phoneController.text,
                                     mailController.text,
                                   );
-                                  FirebaseAuth.instance
+                                  await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                     email: mailController.text,
                                     password: passwordController.text,
-                                  );
-
+                                  )
+                                      .then((value) {
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavigatorBarPage(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  });
+                                  EasyLoading.showSuccess('Great Success!');
+                                  EasyLoading.dismiss();
                                   // ignore: use_build_context_synchronously
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          BottomNavigatorBarPage(),
-                                    ),
-                                    (route) => false,
-                                  );
                                 } catch (e) {
                                   // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(

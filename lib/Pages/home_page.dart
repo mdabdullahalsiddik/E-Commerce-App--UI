@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -85,11 +86,22 @@ class _HomePageState extends State<HomePage> {
                     child: ListView(
                       children: [
                         UserAccountsDrawerHeader(
+                          decoration: const BoxDecoration(
+                            color: AllColors.primaryColor,
+                          ),
                           accountName: Text(
                             snapshot.data!.name.toString(),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                            ),
                           ),
                           accountEmail: Text(
                             snapshot.data!.mail.toString(),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                            ),
                           ),
                         ),
                         InkWell(
@@ -98,54 +110,40 @@ class _HomePageState extends State<HomePage> {
                               barrierDismissible: true,
                               context: context,
                               builder: (context) {
-                                return AlertDialog(
-                                  title: const Text("Confirmation"),
-                                  content: const Text("Are you sura exit."),
+                                return CupertinoAlertDialog(
+                                  title: const Text(
+                                    "Log Out?",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  content: const Text("Are you sure?"),
                                   actions: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        ElevatedButton(
-                                            style: const ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                AllColors.primaryColor,
+                                    CupertinoDialogAction(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("No"),
+                                    ),
+                                    CupertinoDialogAction(
+                                        onPressed: () {
+                                          setState(() async {
+                                            await EasyLoading.show(
+                                                status: 'loading...');
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    const SingInPage(),
                                               ),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context, false);
-                                            },
-                                            child: const Text(
-                                              "No",
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            )),
-                                        ElevatedButton(
-                                            style: const ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                AllColors.primaryColor,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                FirebaseAuth.instance.signOut();
-                                                Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        const SingInPage(),
-                                                  ),
-                                                  (route) => false,
-                                                );
-                                              });
-                                            },
-                                            child: const Text("Yes",
-                                                style: TextStyle(
-                                                    color: Colors.black))),
-                                      ],
-                                    )
+                                              (route) => false,
+                                            );
+                                            FirebaseAuth.instance.signOut();
+                                            EasyLoading.showSuccess(
+                                                'Great Success!');
+                                            EasyLoading.dismiss();
+                                          });
+                                        },
+                                        child: const Text("Yes")),
                                   ],
                                 );
                               },
