@@ -75,7 +75,7 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
                 }
                 return const Badge(
                   label: Text(
-                    "100",
+                    "0",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
                 }
                 return const Badge(
                   label: Text(
-                    "100",
+                    "0",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
