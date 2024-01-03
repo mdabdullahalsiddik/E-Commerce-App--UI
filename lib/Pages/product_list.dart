@@ -17,11 +17,11 @@ class ProductListPage extends StatefulWidget {
   String title;
   String id;
   ProductListPage({
-    Key? key,
+    super.key,
     this.index,
     required this.title,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   State<ProductListPage> createState() => _ProductListPageState();
@@ -144,70 +144,72 @@ class _ProductListPageState extends State<ProductListPage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      IconButton(onPressed: () async {
-                                        await FirebaseGetData()
-                                            .favoriteGetData();
-                                        if (favoriteList
-                                            .contains(data[index])) {
-                                          setState(() async {
-                                            favoriteList.remove(
-                                              data[index],
-                                            );
-                                            await FirebaseDatabase.instance
-                                                .ref("Favorite")
-                                                .child(FirebaseAuth
-                                                    .instance.currentUser!.uid
-                                                    .toString())
-                                                .child(
-                                                    "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
-                                                .remove();
-                                          });
-                                        } else {
-                                          setState(() async {
-                                            favoriteList.add(
-                                              data[index],
-                                            );
-                                            await FirebaseDatabase.instance
-                                                .ref("Favorite")
-                                                .child(FirebaseAuth
-                                                    .instance.currentUser!.uid
-                                                    .toString())
-                                                .child(
-                                                    "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
-                                                .set(
-                                                  FavoriteProductModel(
-                                                          title: data[index]!
-                                                              .title
-                                                              .toString(),
-                                                          image: data[index]!
-                                                              .image
-                                                              .toString(),
-                                                          price: data[index]!
-                                                              .price,
-                                                          totalprice:
-                                                              data[index]!
-                                                                  .price,
-                                                          id: data[index]!
-                                                              .id
-                                                              .toString(),
-                                                          categoryTitle: widget
-                                                              .title
-                                                              .toString())
-                                                      .toJson(),
+                                      IconButton(
+                                          onPressed: () async {
+                                            await FirebaseGetData()
+                                                .favoriteGetData();
+                                            if (favoriteList
+                                                .contains(data[index])) {
+                                              setState(() async {
+                                                favoriteList.remove(
+                                                  data[index],
                                                 );
-                                          });
-                                        }
-                                      }, icon: StatefulBuilder(
-                                          builder: (context, snapshot) {
-                                        return Icon(
-                                          Icons.favorite,
-                                          size: 15,
-                                          color:
-                                              favoriteList.contains(data[index])
-                                                  ? Colors.red
-                                                  : Colors.black,
-                                        );
-                                      })),
+                                                await FirebaseDatabase.instance
+                                                    .ref("Favorite")
+                                                    .child(FirebaseAuth.instance
+                                                        .currentUser!.uid
+                                                        .toString())
+                                                    .child(
+                                                        "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
+                                                    .remove();
+                                              });
+                                            } else {
+                                              setState(() async {
+                                                favoriteList.add(
+                                                  data[index],
+                                                );
+                                                await FirebaseDatabase.instance
+                                                    .ref("Favorite")
+                                                    .child(FirebaseAuth.instance
+                                                        .currentUser!.uid
+                                                        .toString())
+                                                    .child(
+                                                        "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
+                                                    .set(
+                                                      FavoriteProductModel(
+                                                              title: data[
+                                                                      index]!
+                                                                  .title
+                                                                  .toString(),
+                                                              image: data[
+                                                                      index]!
+                                                                  .image
+                                                                  .toString(),
+                                                              price:
+                                                                  data[index]!
+                                                                      .price,
+                                                              totalprice:
+                                                                  data[index]!
+                                                                      .price,
+                                                              id: data[index]!
+                                                                  .id
+                                                                  .toString(),
+                                                              categoryTitle:
+                                                                  widget.title
+                                                                      .toString())
+                                                          .toJson(),
+                                                    );
+                                              });
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            size: 15,
+                                            color: favoriteList.contains(
+                                                    "${data[index]!.categoryID.toString()}_${data[index]!.id.toString()}")
+                                                ? Colors.red
+                                                : Colors.black,
+                                          )),
                                     ],
                                   ),
                                   SizedBox(

@@ -124,6 +124,7 @@ class OderCartProductModel {
   int? quantity;
   // ignore: prefer_typing_uninitialized_variables
   var price;
+  // ignore: prefer_typing_uninitialized_variables
   var totalprice;
   String? id;
   String? about;
@@ -181,6 +182,7 @@ class OderProductModel {
   int? quantity;
   // ignore: prefer_typing_uninitialized_variables
   var price;
+  // ignore: prefer_typing_uninitialized_variables
   var totalprice;
 
   String? id;
