@@ -122,7 +122,7 @@ class _CartItemPageState extends State<CartItemPage> {
                         },
                         child: Card(
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height / 8,
+                            height: MediaQuery.of(context).size.height / 5,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -131,10 +131,8 @@ class _CartItemPageState extends State<CartItemPage> {
                                     vertical: 10,
                                   ),
                                   child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        .05,
                                     width:
-                                        MediaQuery.of(context).size.width * .05,
+                                        MediaQuery.of(context).size.width * .3,
                                     child: Image.network(
                                       snapshot.data![index].image.toString(),
                                     ),
@@ -335,7 +333,7 @@ class _CartItemPageState extends State<CartItemPage> {
                       ),
                     )
                   : SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.13,
+                      height: MediaQuery.of(context).size.height * 0.3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
@@ -397,8 +395,9 @@ class _CartItemPageState extends State<CartItemPage> {
                                             id: snapshot.data![i].id.toString(),
                                             quantity:
                                                 snapshot.data![i].quantity,
-                                            categoryID:
-                                                snapshot.data![i].toString(),
+                                            categoryID: snapshot
+                                                .data![i].categoryID
+                                                .toString(),
                                             mail: FirebaseAuth
                                                 .instance.currentUser!.email
                                                 .toString(),
