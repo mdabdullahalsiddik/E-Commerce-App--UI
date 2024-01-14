@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List searchList = [];
   List finalSearchList = [];
-  bool loding = false;
+ 
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         for (var element in value) {
           favoriteList.add(element);
         }
-        print("***********************$favoriteList");
+        
       });
     });
     FirebaseGetData().categoryGetData().then((value) {
@@ -49,14 +49,15 @@ class _HomePageState extends State<HomePage> {
 
   void searchData(String value) {
     setState(() {
+      value.isEmpty || value == "" ? searchList = finalSearchList:
       searchList = finalSearchList
           .where(
-            (element) => element["title"].toString().toLowerCase().contains(
+            (element) => element.title.toString().toLowerCase().contains(
                   value.toLowerCase(),
                 ),
           )
           .toList();
-      loding = true;
+      
     });
   }
 
@@ -194,11 +195,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.black,
             ),
           ),
-          body: loding
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Padding(
+          body:  Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
                   ),
@@ -207,9 +204,9 @@ class _HomePageState extends State<HomePage> {
                       CupertinoSearchTextField(
                         controller: searchController,
                         onChanged: (value) {
-                          setState(() {
+                          
                             searchData(value);
-                          });
+                          
                         },
                       ),
                       SizedBox(

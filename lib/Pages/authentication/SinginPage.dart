@@ -1,14 +1,14 @@
-// ignore: file_names
-// ignore: file_names
+// ignore_for_file: file_names
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ecommerce_ui/Pages/authentication/SingupPage.dart';
 import 'package:ecommerce_ui/Pages/authentication/otp_page.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter/material.dart';
 
 class SingInPage extends StatefulWidget {
   const SingInPage({super.key});
@@ -161,7 +161,7 @@ class _SingInPageState extends State<SingInPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        BottomNavigatorBarPage(),
+                                        const BottomNavigatorBarPage(),
                                   ),
                                   (route) => false,
                                 ),

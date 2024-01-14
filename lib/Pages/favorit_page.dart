@@ -1,13 +1,11 @@
 import 'package:ecommerce_ui/Funcition/all_funcition.dart';
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
-import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/product_ditls_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FavoritePage extends StatefulWidget {

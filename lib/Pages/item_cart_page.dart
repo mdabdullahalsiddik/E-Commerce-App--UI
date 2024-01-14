@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Model/all_model.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
@@ -17,6 +19,7 @@ class CartItemPage extends StatefulWidget {
 }
 
 class _CartItemPageState extends State<CartItemPage> {
+  // ignore: non_constant_identifier_names
   List t_price = [];
   int i = 0;
   double tP = 0;

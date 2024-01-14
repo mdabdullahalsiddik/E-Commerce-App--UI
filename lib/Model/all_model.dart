@@ -1,5 +1,5 @@
 // ignore: duplicate_ignore
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_typing_uninitialized_variables, duplicate_ignore
 class CartItemModel {
   String? title;
   String? image;
@@ -88,7 +88,7 @@ class ProductModel {
     return map;
   }
 }
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 
 class CategoryModel {
   String? title;

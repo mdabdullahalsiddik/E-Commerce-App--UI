@@ -49,13 +49,15 @@ class _ProductListPageState extends State<ProductListPage> {
 
   void searchData(String value) {
     setState(() {
-      data = finalSearchList
-          .where(
-            (element) => element["title"].toString().toLowerCase().contains(
-                  value.toLowerCase(),
-                ),
-          )
-          .toList();
+      value.isEmpty || value == ""
+          ? data = finalSearchList
+          : data = finalSearchList
+              .where(
+                (element) => element.title.toString().toLowerCase().contains(
+                      value.toLowerCase(),
+                    ),
+              )
+              .toList();
     });
   }
 
@@ -98,9 +100,7 @@ class _ProductListPageState extends State<ProductListPage> {
               CupertinoSearchTextField(
                 controller: searchController,
                 onChanged: (value) {
-                  setState(() {
-                    searchData(value);
-                  });
+                  searchData(value);
                 },
               ),
               SizedBox(
