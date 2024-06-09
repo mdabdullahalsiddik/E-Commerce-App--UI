@@ -5,17 +5,25 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:ecommerce_ui/Model/user_modul.dart';
 
 class FirebaseData {
-  sendData(
+sendData(
     String name,
     String password,
     String phone,
     String mail,
+    String area,
+    String city,
+    String country,
+    String image,
   ) async {
     var user = UserInfoModel(
       name: name,
       phone: phone,
       password: password,
       mail: mail,
+      area: area,
+      city: city,
+      country: country,
+      image: image,
     );
 
     await FirebaseDatabase.instance

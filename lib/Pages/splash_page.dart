@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
             MaterialPageRoute(
               builder: (context) => FirebaseAuth.instance.currentUser == null
                   ? const WelcomePage()
-                  :  const BottomNavigatorBarPage(),
+                  : const BottomNavigatorBarPage(),
             ),
             (route) => false);
       },
@@ -35,13 +35,14 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AllColors.primaryColor,
       body: Center(
-        child: Icon(
-          Icons.shopping_cart,
-          size: 100,
-          color: AllColors.yellowColor,
+        child: Image.asset(
+          "assets/images/logo.png",
+          height: 100,
+          width: 100,
+          fit: BoxFit.fill,
         ),
       ),
     );

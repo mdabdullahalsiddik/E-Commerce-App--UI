@@ -1,6 +1,5 @@
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/authentication/account_page.dart';
-import 'package:ecommerce_ui/Pages/chat_page.dart';
 import 'package:ecommerce_ui/Pages/favorit_page.dart';
 import 'package:ecommerce_ui/Pages/home_page.dart';
 import 'package:ecommerce_ui/Pages/item_cart_page.dart';
@@ -23,7 +22,6 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
     const HomePage(),
     const FavoritePage(),
     const CartItemPage(),
-    const ChatPage(),
     const AccountPage()
   ];
 
@@ -117,10 +115,7 @@ class _BottomNavigatorBarPageState extends State<BottomNavigatorBarPage> {
             ),
             label: "",
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.message_outlined),
-            label: "",
-          ),
+         
           const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "",

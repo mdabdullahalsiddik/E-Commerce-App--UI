@@ -1,14 +1,19 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
+
+import 'dart:io';
 
 import 'package:ecommerce_ui/Funcition/firebase_funcition.dart';
 import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Pages/authentication/SinginPage.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
+import 'package:ecommerce_ui/Static/all_images.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -19,14 +24,50 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   var formkey = GlobalKey<FormState>();
+  File? pickedImage;
+  String? images;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController mailController = TextEditingController();
+  TextEditingController areaController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   bool passwordValidator = false;
   bool confampasswordValidator = false;
   var auth = FirebaseAuth.instance;
+  galleryPickImage() {
+    setState(() async {
+      try {
+        final image =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        final tempImage = File(image!.path);
+        pickedImage = tempImage;
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
+      }
+    });
+  }
+
+  Future sendImage() async {
+    setState(() async {
+      var dataKye = DateTime.now().microsecond;
+
+      var imagePath = await FirebaseStorage.instance
+          .ref("user")
+          .child(
+            "${FirebaseAuth.instance.currentUser!.email.toString().replaceAll('.', '')}_${dataKye.toString()}",
+          )
+          .putFile(pickedImage!);
+
+      images = await imagePath.ref.getDownloadURL();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +81,17 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Column(
+                Column(
                   children: [
-                    Text(
+                    Image.asset(
+                      AllImages.logo,
+                      height: 100,
+                      width: 100,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
                       "Create Account",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -51,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Create an account so you can explore all the existing jobs",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -69,6 +118,28 @@ class _RegisterPageState extends State<RegisterPage> {
                   key: formkey,
                   child: Column(
                     children: [
+                      InkWell(
+                        onTap: () {
+                          galleryPickImage();
+                        },
+                        child: CircleAvatar(
+                          radius: 50,
+                          child: pickedImage == null
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 100,
+                                  color: AllColors.primaryColor,
+                                )
+                              : CircleAvatar(
+                                  radius: 70,
+                                  backgroundColor: AllColors.primaryColor,
+                                  backgroundImage: FileImage(pickedImage!),
+                                ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
                       CostomTextField(
                         controller: nameController,
                         hintText: "Name",
@@ -101,6 +172,45 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (valueKey) {
                           if (valueKey!.isEmpty) {
                             return ("Enter your mail");
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
+                      CostomTextField(
+                        controller: areaController,
+                        hintText: "Village/Area",
+                        validator: (valueKey) {
+                          if (valueKey!.isEmpty) {
+                            return ("Enter your village/area");
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
+                      CostomTextField(
+                        controller: cityController,
+                        hintText: "City",
+                        validator: (valueKey) {
+                          if (valueKey!.isEmpty) {
+                            return ("Enter your city");
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .01,
+                      ),
+                      CostomTextField(
+                        controller: countryController,
+                        hintText: "Country",
+                        validator: (valueKey) {
+                          if (valueKey!.isEmpty) {
+                            return ("Enter your country");
                           }
                           return null;
                         },
@@ -178,11 +288,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                   confirmpasswordController.text) {
                                 try {
                                   await EasyLoading.show(status: 'loading...');
+                                  await sendImage();
                                   await FirebaseData().sendData(
                                     nameController.text,
                                     passwordController.text,
                                     phoneController.text,
                                     mailController.text,
+                                    areaController.text,
+                                    cityController.text,
+                                    countryController.text,
+                                    images ?? AllImages.profileImage,
                                   );
                                   await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
@@ -201,8 +316,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                   });
                                   EasyLoading.showSuccess('Great Success!');
                                   EasyLoading.dismiss();
+                                  // ignore: duplicate_ignore
                                   // ignore: use_build_context_synchronously
                                 } catch (e) {
+                                  // ignore: duplicate_ignore
                                   // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -250,7 +367,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           "Already have an account",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.black,
+                            color: AllColors.primaryColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),

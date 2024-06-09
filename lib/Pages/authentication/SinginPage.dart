@@ -9,6 +9,7 @@ import 'package:ecommerce_ui/Pages/buttom_bar_page.dart';
 import 'package:ecommerce_ui/Static/all_colors.dart';
 import 'package:ecommerce_ui/Widget/costom_button.dart';
 import 'package:ecommerce_ui/Widget/costom_textfromfield.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SingInPage extends StatefulWidget {
   const SingInPage({super.key});
@@ -151,6 +152,8 @@ class _SingInPageState extends State<SingInPage> {
                     onTap: () async {
                       if (formkey.currentState!.validate()) {
                         try {
+                          await EasyLoading.show(status: 'loading...');
+
                           await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
                                 email: mailController.text,
@@ -166,6 +169,7 @@ class _SingInPageState extends State<SingInPage> {
                                   (route) => false,
                                 ),
                               );
+                          EasyLoading.dismiss();
                         } catch (e) {
                           // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -175,6 +179,7 @@ class _SingInPageState extends State<SingInPage> {
                               ),
                             ),
                           );
+                          EasyLoading.dismiss();
                         }
                       }
                     },

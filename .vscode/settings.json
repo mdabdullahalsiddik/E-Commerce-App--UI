@@ -22,5 +22,6 @@
     "debug.hideLauncherWhileDebugging": false,
     "zenMode.hideStatusBar": false,
     "versionlens.showDependencyStatusesAtStartup": true,
-    "versionlens.showTaggedVersionsAtStartup": true
+    "versionlens.showTaggedVersionsAtStartup": true,
+    "yaml.schemaStore.enable": false
 }
